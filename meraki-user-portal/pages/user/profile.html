@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile — Meraki AutoChain</title>
+  <link rel="stylesheet" href="../../css/global.css" />
+  <link rel="stylesheet" href="../../css/user.css" />
+  <style>
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .profile-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .profile-avatar-lg {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-family: var(--font-display);
+      font-size: 1.625rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .profile-card-name {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .profile-card-email {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .profile-card-divider {
+      height: 1px;
+      background: var(--border-soft);
+      margin: 16px 0;
+    }
+
+    .profile-meta-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8125rem;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .profile-meta-item:last-child { border-bottom: none; }
+    .profile-meta-item .label { color: var(--text-muted); }
+    .profile-meta-item .value { font-weight: 500; color: var(--navy); }
+
+    /* ── Form ── */
+    .profile-form-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .form-card-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--navy);
+      font-family: var(--font-display);
+    }
+
+    .form-card-body {
+      padding: 24px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 7px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      background: var(--bg-white);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .form-input:focus {
+      border-color: var(--steel);
+      box-shadow: 0 0 0 3px rgba(18,59,93,0.08);
+    }
+
+    .form-input:disabled {
+      background: var(--bg);
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+
+    .form-card-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-soft);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    @media (max-width: 860px) {
+      .profile-layout { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="wordmark">Meraki<span>.</span></div>
+      <div class="sub">AutoChain — Owner Portal</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <a href="dashboard.html" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="7" height="7" rx="1"/>
+          <rect x="11" y="2" width="7" height="7" rx="1"/>
+          <rect x="2" y="11" width="7" height="7" rx="1"/>
+          <rect x="11" y="11" width="7" height="7" rx="1"/>
+        </svg>
+        Dashboard
+      </a>
+      <div class="nav-section-label">My Vehicles</div>
+      <a href="vehicles.html" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 10l1.5-5h11L17 10"/>
+          <rect x="2" y="10" width="16" height="5" rx="1"/>
+          <circle cx="5.5" cy="15.5" r="1.5"/>
+          <circle cx="14.5" cy="15.5" r="1.5"/>
+        </svg>
+        Vehicle Garage
+      </a>
+      <div class="nav-section-label">Access</div>
+      <a href="shared-access.html" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="10" cy="6" r="3"/>
+          <path d="M3 17c0-3.314 3.134-6 7-6s7 2.686 7 6"/>
+          <path d="M14 11l2 2 4-4" stroke-width="1.5"/>
+        </svg>
+        Share Access
+      </a>
+      <div class="nav-section-label">Account</div>
+      <a href="profile.html" class="nav-item active">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="10" cy="7" r="3"/>
+          <path d="M4 17c0-3.314 2.686-6 6-6s6 2.686 6 6"/>
+        </svg>
+        Profile
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar" id="sidebar-user-initial">J</div>
+        <div class="sidebar-user-info">
+          <div class="name" id="sidebar-user-name">Loading...</div>
+          <div class="role" id="sidebar-user-role">Owner</div>
+        </div>
+      </div>
+      <button class="logout-btn" data-action="logout">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M13 15l5-5-5-5M18 10H7"/>
+          <path d="M7 3H4a1 1 0 00-1 1v12a1 1 0 001 1h3"/>
+        </svg>
+        Sign out
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <div class="page-header">
+      <div class="page-header-left">
+        <div class="page-title">Profile</div>
+        <div class="page-subtitle">Manage your account details</div>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="profile-layout">
+
+        <!-- LEFT: profile card -->
+        <div>
+          <div class="profile-card">
+            <div class="profile-avatar-lg" id="profile-avatar-initial">J</div>
+            <div class="profile-card-name" id="profile-name">John Kamau</div>
+            <div class="profile-card-email" id="profile-email">john@example.com</div>
+            <span class="badge badge-verified"><span class="badge-dot"></span>Active account</span>
+
+            <div class="profile-card-divider"></div>
+
+            <div class="profile-meta-item">
+              <span class="label">Account type</span>
+              <span class="value">Vehicle Owner</span>
+            </div>
+            <div class="profile-meta-item">
+              <span class="label">Member since</span>
+              <span class="value">January 2026</span>
+            </div>
+            <div class="profile-meta-item">
+              <span class="label">Vehicles</span>
+              <span class="value">3</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: edit forms -->
+        <div>
+
+          <!-- Personal details -->
+          <div class="profile-form-card">
+            <div class="form-card-header">Personal details</div>
+            <div class="form-card-body">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="first-name">First name</label>
+                  <input class="form-input" type="text" id="first-name" value="John" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="last-name">Last name</label>
+                  <input class="form-input" type="text" id="last-name" value="Kamau" />
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label" for="email-field">Email address</label>
+                <input class="form-input" type="email" id="email-field" value="john@example.com" disabled />
+              </div>
+            </div>
+            <div class="form-card-footer">
+              <button class="btn btn-ghost btn-sm">Cancel</button>
+              <button class="btn btn-primary btn-sm" id="save-profile-btn">Save changes</button>
+            </div>
+          </div>
+
+          <!-- Change password -->
+          <div class="profile-form-card">
+            <div class="form-card-header">Change password</div>
+            <div class="form-card-body">
+              <div class="form-group">
+                <label class="form-label" for="current-password">Current password</label>
+                <input class="form-input" type="password" id="current-password" placeholder="Enter current password" />
+              </div>
+              <div class="form-row">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label" for="new-password">New password</label>
+                  <input class="form-input" type="password" id="new-password" placeholder="New password" />
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label" for="confirm-password">Confirm password</label>
+                  <input class="form-input" type="password" id="confirm-password" placeholder="Confirm new password" />
+                </div>
+              </div>
+            </div>
+            <div class="form-card-footer">
+              <button class="btn btn-primary btn-sm">Update password</button>
+            </div>
+          </div>
+
+          <!-- Danger zone -->
+          <div style="padding:20px; border:1px solid rgba(192,57,43,0.15); border-radius:var(--radius); background:rgba(192,57,43,0.03);">
+            <div style="font-size:0.875rem; font-weight:600; color:#C0392B; margin-bottom:8px;">Sign out of all devices</div>
+            <p style="font-size:0.8125rem; color:var(--text-muted); margin-bottom:14px;">This will end all active sessions across all devices.</p>
+            <button class="btn btn-ghost btn-sm" style="border-color:rgba(192,57,43,0.2); color:#C0392B;">Sign out everywhere</button>
+          </div>
+
+        </div>
+
+      </div><!-- /profile-layout -->
+    </div><!-- /page-body -->
+  </main>
+
+</div><!-- /page-layout -->
+
+<script src="../../js/shared/auth.js"></script>
+<script src="../../js/shared/api.js"></script>
+<script src="../../js/shared/router.js"></script>
+<script src="../../js/user/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ─────────────────────────────────────────
+   MERAKI AUTOCHAIN — DESIGN TOKENS
+───────────────────────────────────────── */
+:root {
+  --primary:        #071A2B;
+  --primary-mid:    #0D2840;
+  --secondary:      #123B5D;
+  --accent:         #1FA774;
+  --accent-dim:     #177A56;
+  --accent-ghost:   rgba(31, 167, 116, 0.1);
+  --background:     #F5F7FA;
+  --surface:        #FFFFFF;
+  --surface-alt:    #EEF1F5;
+  --border:         #D8DCE4;
+  --border-light:   #E8ECF2;
+  --text-primary:   #0B1F30;
+  --text-secondary: #4A5D6E;
+  --text-muted:     #8A9BAB;
+  --text-inverse:   #F5F7FA;
+  --danger:         #C0392B;
+  --warning:        #D4881A;
+  --verified:       #1FA774;
+  --pending:        #D4881A;
+  --unverified:     #8A9BAB;
+
+  --sidebar-w:      240px;
+  --topbar-h:       60px;
+
+  --font-display:   'Space Grotesk', sans-serif;
+  --font-body:      'Inter', sans-serif;
+
+  --radius-sm:      3px;
+  --radius:         4px;
+  --radius-md:      6px;
+
+  --shadow-sm:      0 1px 3px rgba(7,26,43,0.06);
+  --shadow:         0 2px 8px rgba(7,26,43,0.08);
+  --shadow-md:      0 4px 16px rgba(7,26,43,0.10);
+}
+
+/* ─────────────────────────────────────────
+   RESET
+───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { font-size: 15px; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--background);
+  color: var(--text-primary);
+  line-height: 1.55;
+}
+
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, select, textarea { font-family: inherit; }
+ul, ol { list-style: none; }
+img { display: block; max-width: 100%; }
+
+/* ─────────────────────────────────────────
+   TYPOGRAPHY SCALE
+───────────────────────────────────────── */
+.t-display {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.t-heading {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.t-subhead {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.t-data {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--primary);
+}
+
+.t-body { font-size: 0.9rem; }
+.t-small { font-size: 0.8rem; }
+.t-caption { font-size: 0.75rem; color: var(--text-muted); }
+
+/* ─────────────────────────────────────────
+   STATUS BADGES
+───────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+}
+
+.badge::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.badge-verified {
+  background: rgba(31, 167, 116, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(31, 167, 116, 0.25);
+}
+.badge-verified::before { background: var(--accent); }
+
+.badge-pending {
+  background: rgba(212, 136, 26, 0.1);
+  color: var(--warning);
+  border: 1px solid rgba(212, 136, 26, 0.25);
+}
+.badge-pending::before { background: var(--warning); }
+
+.badge-unverified {
+  background: rgba(138, 155, 171, 0.12);
+  color: var(--text-secondary);
+  border: 1px solid rgba(138, 155, 171, 0.25);
+}
+.badge-unverified::before { background: var(--text-muted); }
+
+.badge-danger {
+  background: rgba(192, 57, 43, 0.1);
+  color: var(--danger);
+  border: 1px solid rgba(192, 57, 43, 0.25);
+}
+.badge-danger::before { background: var(--danger); }
+
+/* ─────────────────────────────────────────
+   BUTTONS
+───────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 9px 18px;
+  border-radius: var(--radius);
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--accent-dim); }
+
+.btn-dark {
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+.btn-dark:hover { background: var(--secondary); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover {
+  background: var(--surface-alt);
+  color: var(--text-primary);
+}
+
+.btn-sm { padding: 6px 12px; font-size: 0.76rem; }
+.btn-lg { padding: 12px 24px; font-size: 0.9rem; }
+
+/* ─────────────────────────────────────────
+   FORM ELEMENTS
+───────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field label {
+  font-family: var(--font-display);
+  font-size: 0.77rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(18, 59, 93, 0.1);
+}
+
+.field textarea { resize: vertical; min-height: 90px; }
+
+.field-error input,
+.field-error select {
+  border-color: var(--danger);
+}
+.field-hint {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+.field-error-msg {
+  font-size: 0.76rem;
+  color: var(--danger);
+}
+
+/* ─────────────────────────────────────────
+   DIVIDERS
+───────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--border-light);
+}
+
+.divider-dark {
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+}
+
+/* ─────────────────────────────────────────
+   UTILITY
+───────────────────────────────────────── */
+.text-accent   { color: var(--accent); }
+.text-muted    { color: var(--text-muted); }
+.text-secondary{ color: var(--text-secondary); }
+.text-danger   { color: var(--danger); }
+
+.flex          { display: flex; }
+.flex-center   { display: flex; align-items: center; justify-content: center; }
+.flex-between  { display: flex; align-items: center; justify-content: space-between; }
+.flex-col      { display: flex; flex-direction: column; }
+.gap-4         { gap: 4px; }
+.gap-8         { gap: 8px; }
+.gap-12        { gap: 12px; }
+.gap-16        { gap: 16px; }
+.gap-24        { gap: 24px; }
+
+.w-full        { width: 100%; }
+.mt-4          { margin-top: 4px; }
+.mt-8          { margin-top: 8px; }
+.mt-16         { margin-top: 16px; }
+.mt-24         { margin-top: 24px; }
+.mt-32         { margin-top: 32px; }
+
+.hidden        { display: none !important; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
+}
+
+/* ─────────────────────────────────────────
+   VERIFICATION PULSE — Signature element
+   Used on verified records. A discrete
+   animated trace that reads "live data."
+───────────────────────────────────────── */
+.v-pulse {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.v-pulse-line {
+  width: 32px;
+  height: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.v-pulse-line svg {
+  position: absolute;
+  top: 0; left: 0;
+  animation: pulse-scroll 2.4s linear infinite;
+}
+
+@keyframes pulse-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─────────────────────────────────────────
+   BLOCKCHAIN HASH DISPLAY
+───────────────────────────────────────── */
+.hash-display {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  background: var(--surface-alt);
+  border: 1px solid var(--border-light);
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  word-break: break-all;
+}
+
+/* ─────────────────────────────────────────
+   EMPTY STATES
+───────────────────────────────────────── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.empty-state .empty-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 12px;
+  opacity: 0.35;
+}
+
+.empty-state p {
+  font-size: 0.85rem;
+  max-width: 260px;
+}
+
+/* ─────────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }

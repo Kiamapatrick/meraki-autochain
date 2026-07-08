@@ -1,0 +1,306 @@
+/* ─────────────────────────────────────────
+   MERAKI AUTOCHAIN — INSPECTOR STYLES
+───────────────────────────────────────── */
+
+/* ── Inspection Form ── */
+.inspection-form-shell {
+  max-width: 780px;
+}
+
+.form-section {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.form-section-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-section-number {
+  width: 22px;
+  height: 22px;
+  background: var(--primary);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.form-section-title {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.form-section-body {
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.form-section-body .field-full {
+  grid-column: 1 / -1;
+}
+
+/* Condition selector */
+.condition-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.condition-option {
+  position: relative;
+}
+
+.condition-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+}
+
+.condition-label {
+  display: block;
+  text-align: center;
+  padding: 8px 4px;
+  background: var(--background);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.condition-option input:checked + .condition-label {
+  border-color: var(--accent);
+  background: var(--accent-ghost);
+  color: var(--accent);
+}
+
+.condition-label:hover {
+  border-color: var(--secondary);
+  color: var(--text-primary);
+}
+
+/* File upload zone */
+.upload-zone {
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius-md);
+  padding: 28px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.upload-zone:hover {
+  border-color: var(--secondary);
+  background: rgba(18,59,93,0.03);
+}
+
+.upload-zone.dragging {
+  border-color: var(--accent);
+  background: var(--accent-ghost);
+}
+
+.upload-zone-icon {
+  width: 36px;
+  height: 36px;
+  margin: 0 auto 10px;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.upload-zone-text {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.upload-zone-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.upload-zone input { display: none; }
+
+.upload-previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.upload-thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius);
+  object-fit: cover;
+  border: 1px solid var(--border-light);
+}
+
+/* Verification status card — post-submission */
+.verify-status-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.verify-status-header {
+  background: var(--primary);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.verify-status-title {
+  font-family: var(--font-display);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.verify-status-id {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.45);
+}
+
+.verify-steps {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.verify-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.verify-step-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.verify-step-icon.done {
+  background: var(--accent-ghost);
+  color: var(--accent);
+}
+
+.verify-step-icon.pending {
+  background: rgba(212,136,26,0.1);
+  color: var(--warning);
+}
+
+.verify-step-icon.waiting {
+  background: var(--surface-alt);
+  color: var(--text-muted);
+}
+
+.verify-step-icon svg { width: 14px; height: 14px; }
+
+.verify-step-text {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.verify-step-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* ── Vehicles page ── */
+.vehicles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.vehicle-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: box-shadow 0.15s;
+}
+
+.vehicle-card:hover { box-shadow: var(--shadow-md); }
+
+.vehicle-card-header {
+  background: var(--primary);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vehicle-card-reg {
+  font-family: var(--font-display);
+  font-size: 0.96rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+
+.vehicle-card-body {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vehicle-card-make {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.vehicle-card-meta {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.vehicle-card-footer {
+  padding: 10px 16px;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vehicle-card-date {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}

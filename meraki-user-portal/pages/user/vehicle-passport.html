@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vehicle Passport — Meraki AutoChain</title>
+  <link rel="stylesheet" href="../../css/global.css" />
+  <link rel="stylesheet" href="../../css/user.css" />
+  <link rel="stylesheet" href="../../css/passport.css" />
+</head>
+<body>
+
+<div class="page-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="wordmark">Meraki<span>.</span></div>
+      <div class="sub">AutoChain — Owner Portal</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <a href="dashboard.html" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="7" height="7" rx="1"/>
+          <rect x="11" y="2" width="7" height="7" rx="1"/>
+          <rect x="2" y="11" width="7" height="7" rx="1"/>
+          <rect x="11" y="11" width="7" height="7" rx="1"/>
+        </svg>
+        Dashboard
+      </a>
+      <div class="nav-section-label">My Vehicles</div>
+      <a href="vehicles.html" class="nav-item active">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 10l1.5-5h11L17 10"/>
+          <rect x="2" y="10" width="16" height="5" rx="1"/>
+          <circle cx="5.5" cy="15.5" r="1.5"/>
+          <circle cx="14.5" cy="15.5" r="1.5"/>
+        </svg>
+        Vehicle Garage
+      </a>
+      <div class="nav-section-label">Access</div>
+      <a href="shared-access.html" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="10" cy="6" r="3"/>
+          <path d="M3 17c0-3.314 3.134-6 7-6s7 2.686 7 6"/>
+          <path d="M14 11l2 2 4-4" stroke-width="1.5"/>
+        </svg>
+        Share Access
+      </a>
+      <div class="nav-section-label">Account</div>
+      <a href="profile.html" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="10" cy="7" r="3"/>
+          <path d="M4 17c0-3.314 2.686-6 6-6s6 2.686 6 6"/>
+        </svg>
+        Profile
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar" id="sidebar-user-initial">J</div>
+        <div class="sidebar-user-info">
+          <div class="name" id="sidebar-user-name">Loading...</div>
+          <div class="role" id="sidebar-user-role">Owner</div>
+        </div>
+      </div>
+      <button class="logout-btn" data-action="logout">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M13 15l5-5-5-5M18 10H7"/>
+          <path d="M7 3H4a1 1 0 00-1 1v12a1 1 0 001 1h3"/>
+        </svg>
+        Sign out
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <div class="page-header">
+      <div class="page-header-left">
+        <div class="page-title">Vehicle Passport</div>
+        <div class="page-subtitle"><a href="vehicles.html" style="color:var(--text-muted);">&larr; Back to garage</a></div>
+      </div>
+      <a href="shared-access.html?id=MC-82HD92" class="btn btn-green btn-sm">
+        Share passport
+      </a>
+    </div>
+
+    <div class="page-body">
+      <div class="passport-layout">
+
+        <!-- LEFT COLUMN: passport document -->
+        <div>
+
+          <!-- Header card -->
+          <div class="passport-header-card">
+            <div class="passport-header-top">
+              <div>
+                <div class="passport-header-brand">Meraki AutoChain &middot; Vehicle Passport</div>
+                <div class="passport-vehicle-name" id="passport-vehicle-name">Toyota Axio</div>
+                <div class="passport-vehicle-sub" id="passport-vehicle-sub">2019 &middot; Sedan &middot; 1500cc</div>
+              </div>
+              <div class="passport-meraki-id">
+                <div class="id-label">Meraki ID</div>
+                <div class="id-value" id="passport-meraki-id">MC-82HD92</div>
+              </div>
+            </div>
+
+            <div class="passport-status-row">
+              <span class="badge badge-verified" id="passport-status-badge">
+                <span class="badge-dot"></span>Meraki Verified
+              </span>
+              <div class="passport-blockchain-status">
+                <div class="blockchain-indicator" id="blockchain-indicator"></div>
+                <span id="blockchain-status-text">Blockchain Verified</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vehicle identity -->
+          <div class="passport-section">
+            <div class="passport-section-header">
+              <svg class="passport-section-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="2" y="2" width="12" height="12" rx="1"/>
+                <path d="M5 8h6M5 5h6M5 11h4"/>
+              </svg>
+              <span class="passport-section-label">Vehicle Identity</span>
+            </div>
+            <div class="passport-fields">
+              <div class="passport-field">
+                <span class="passport-field-key">Make</span>
+                <span class="passport-field-value">Toyota</span>
+              </div>
+              <div class="passport-field">
+                <span class="passport-field-key">Model</span>
+                <span class="passport-field-value">Axio</span>
+              </div>
+              <div class="passport-field">
+                <span class="passport-field-key">Year</span>
+                <span class="passport-field-value">2019</span>
+              </div>
+              <div class="passport-field">
+                <span class="passport-field-key">Body type</span>
+                <span class="passport-field-value">Sedan</span>
+              </div>
+              <div class="passport-field">
+                <span class="passport-field-key">Engine</span>
+                <span class="passport-field-value">1500cc</span>
+              </div>
+              <div class="passport-field">
+                <span class="passport-field-key">Transmission</span>
+                <span class="passport-field-value">Automatic</span>
+              </div>
+              <div class="passport-field">
+                <span class="passport-field-key">VIN</span>
+                <span class="passport-field-value mono">NZE164-0093742</span>
+              </div>
+              <div class="passport-field">
+                <span class="passport-field-key">Registration</span>
+                <span class="passport-field-value mono">KDG 421C</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inspection history timeline -->
+          <div class="passport-section">
+            <div class="passport-section-header">
+              <svg class="passport-section-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="8" cy="8" r="6"/>
+                <path d="M8 5v3l2 2"/>
+              </svg>
+              <span class="passport-section-label">Inspection History</span>
+            </div>
+
+            <div class="timeline">
+
+              <div class="timeline-item">
+                <div class="timeline-dot verified"></div>
+                <div class="timeline-content">
+                  <div class="timeline-year">March 2026</div>
+                  <div class="timeline-event">
+                    <div class="timeline-event-title">Full inspection completed</div>
+                    <div class="timeline-event-details">
+                      <div class="timeline-event-detail">Mileage recorded: 47,200 km</div>
+                      <div class="timeline-event-detail">Body condition: Good</div>
+                      <div class="timeline-event-detail">Engine: No faults detected</div>
+                      <div class="timeline-event-detail">Inspector verified by Meraki</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-dot verified"></div>
+                <div class="timeline-content">
+                  <div class="timeline-year">August 2025</div>
+                  <div class="timeline-event">
+                    <div class="timeline-event-title">Full inspection completed</div>
+                    <div class="timeline-event-details">
+                      <div class="timeline-event-detail">Mileage recorded: 39,800 km</div>
+                      <div class="timeline-event-detail">Body condition: Good</div>
+                      <div class="timeline-event-detail">Minor wear: Left rear tyre</div>
+                      <div class="timeline-event-detail">Inspector verified by Meraki</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-dot verified"></div>
+                <div class="timeline-content">
+                  <div class="timeline-year">January 2024</div>
+                  <div class="timeline-event">
+                    <div class="timeline-event-title">Registration verified</div>
+                    <div class="timeline-event-details">
+                      <div class="timeline-event-detail">Vehicle registered on Meraki AutoChain</div>
+                      <div class="timeline-event-detail">Meraki ID assigned: MC-82HD92</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div><!-- /left column -->
+
+        <!-- RIGHT COLUMN: verification sidebar -->
+        <div>
+
+          <!-- Verification status -->
+          <div class="verification-panel">
+            <div class="verification-panel-header">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--green)" stroke-width="1.5">
+                <path d="M2 8l4 4 8-8"/>
+              </svg>
+              <span class="verification-panel-title">Verification status</span>
+            </div>
+            <div class="verification-panel-body">
+              <div class="v-stat">
+                <div class="v-stat-label">Status</div>
+                <div class="v-stat-value green">Meraki Verified</div>
+              </div>
+              <div class="v-stat">
+                <div class="v-stat-label">Last inspection</div>
+                <div class="v-stat-value">March 2026</div>
+              </div>
+              <div class="v-stat">
+                <div class="v-stat-label">Total inspections</div>
+                <div class="v-stat-value">2</div>
+              </div>
+              <div class="v-stat">
+                <div class="v-stat-label">Blockchain proof</div>
+                <div class="v-stat-value green">Verified</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mileage record -->
+          <div class="verification-panel">
+            <div class="verification-panel-header">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--steel)" stroke-width="1.5">
+                <circle cx="8" cy="8" r="6"/>
+                <path d="M8 4v4l3 3"/>
+              </svg>
+              <span class="verification-panel-title">Mileage record</span>
+            </div>
+            <div class="verification-panel-body">
+              <div class="v-stat">
+                <div class="v-stat-label">Last verified mileage</div>
+                <div class="v-stat-value" style="font-size:1.5rem; font-family:var(--font-display);">47,200 <span style="font-size:0.875rem; color:var(--text-muted); font-weight:400;">km</span></div>
+              </div>
+              <div class="v-stat">
+                <div class="v-stat-label">Recorded at</div>
+                <div class="v-stat-value">March 2026</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Share this passport -->
+          <div class="share-trigger">
+            <p>Share this passport with a buyer or authorised party using a secure Meraki share code.</p>
+            <a href="shared-access.html?id=MC-82HD92" class="btn btn-primary" style="width:100%; justify-content:center;">
+              Generate share code
+            </a>
+          </div>
+
+          <!-- Passport notice -->
+          <div style="padding:16px; background:var(--bg); border:1px solid var(--border-soft); border-radius:var(--radius); font-size:0.8125rem; color:var(--text-muted); line-height:1.6;">
+            This passport contains verified records only. Personal owner information is never disclosed.
+            Inspection records are immutable once submitted.
+          </div>
+
+        </div><!-- /right column -->
+
+      </div><!-- /passport-layout -->
+    </div><!-- /page-body -->
+  </main>
+
+</div><!-- /page-layout -->
+
+<script src="../../js/shared/auth.js"></script>
+<script src="../../js/shared/api.js"></script>
+<script src="../../js/shared/router.js"></script>
+<script src="../../js/user/passport.js"></script>
+</body>
+</html>

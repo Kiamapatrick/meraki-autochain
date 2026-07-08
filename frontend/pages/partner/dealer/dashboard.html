@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Meraki AutoChain Dealer</title>
+  <link rel="stylesheet" href="../../../css/global.css">
+  <link rel="stylesheet" href="../../../css/partner.css">
+  <link rel="stylesheet" href="../../../css/dealer.css">
+</head>
+<body>
+
+<div class="app-root">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main-area">
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-breadcrumb">Dealer Portal</div>
+        <div class="topbar-title">Dashboard</div>
+      </div>
+      <div class="topbar-right">
+        <div class="profile-dropdown-wrap">
+          <div class="profile-trigger" id="profile-trigger">
+            <div class="profile-avatar" id="profile-avatar"></div>
+            <div class="profile-name" id="profile-name"></div>
+            <svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="profile-dropdown" id="profile-dropdown">
+            <div class="profile-dropdown-header">
+              <div class="profile-dropdown-name" id="dd-name"></div>
+              <div class="profile-dropdown-email" id="dd-email"></div>
+            </div>
+            <div class="profile-dropdown-item" data-action="logout">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 17H4.5A1.5 1.5 0 013 15.5v-11A1.5 1.5 0 014.5 3H8"/><path d="M13 14l4-4-4-4M17 10H8"/></svg>
+              Sign out
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <div class="page-header">
+        <div class="page-header-left">
+          <div class="page-eyebrow">Overview</div>
+          <h1 class="page-title" id="welcome-msg">Dashboard</h1>
+          <p class="page-subtitle">Your vehicle verification activity at a glance.</p>
+        </div>
+        <div class="page-header-actions">
+          <a href="inventory.html" class="btn btn-primary">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 4v12M4 10h12"/></svg>
+            Add Vehicle
+          </a>
+        </div>
+      </div>
+
+      <div class="stats-grid stats-grid-3">
+        <div class="stat-cell">
+          <div class="stat-label">Vehicles in Inventory</div>
+          <div class="stat-value" id="stat-total">—</div>
+          <div class="stat-meta">All listed vehicles</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Verified</div>
+          <div class="stat-value text-accent" id="stat-verified">—</div>
+          <div class="stat-meta">Inspection confirmed</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Pending Verification</div>
+          <div class="stat-value" id="stat-pending">—</div>
+          <div class="stat-meta">Awaiting inspector</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Recent Inventory</div>
+              <div class="panel-subtitle">Your most recently added vehicles</div>
+            </div>
+            <a href="inventory.html" class="btn btn-ghost btn-sm">View all</a>
+          </div>
+          <div class="panel-body-flush">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Reg No.</th>
+                  <th>Make / Model</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="inventory-tbody">
+                <tr>
+                  <td colspan="4">
+                    <div class="empty-state"><p>No vehicles added yet.</p></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Verification Requests</div>
+              <div class="panel-subtitle">Outstanding requests</div>
+            </div>
+            <a href="requests.html" class="btn btn-ghost btn-sm">All requests</a>
+          </div>
+          <div class="activity-list" id="requests-list">
+            <div class="empty-state">
+              <p>No active verification requests.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="../../../js/partner/router.js"></script>
+<script src="../../../js/partner/sidebar.js"></script>
+<script src="../../../js/partner/profile.js"></script>
+<script src="../../../js/dealer/dashboard.js"></script>
+</body>
+</html>

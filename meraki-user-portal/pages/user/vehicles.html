@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Vehicles — Meraki AutoChain</title>
+  <link rel="stylesheet" href="../../css/global.css" />
+  <link rel="stylesheet" href="../../css/user.css" />
+</head>
+<body>
+
+<div class="page-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="wordmark">Meraki<span>.</span></div>
+      <div class="sub">AutoChain — Owner Portal</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <a href="dashboard.html" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="7" height="7" rx="1"/>
+          <rect x="11" y="2" width="7" height="7" rx="1"/>
+          <rect x="2" y="11" width="7" height="7" rx="1"/>
+          <rect x="11" y="11" width="7" height="7" rx="1"/>
+        </svg>
+        Dashboard
+      </a>
+      <div class="nav-section-label">My Vehicles</div>
+      <a href="vehicles.html" class="nav-item active">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 10l1.5-5h11L17 10"/>
+          <rect x="2" y="10" width="16" height="5" rx="1"/>
+          <circle cx="5.5" cy="15.5" r="1.5"/>
+          <circle cx="14.5" cy="15.5" r="1.5"/>
+        </svg>
+        Vehicle Garage
+      </a>
+      <div class="nav-section-label">Access</div>
+      <a href="shared-access.html" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="10" cy="6" r="3"/>
+          <path d="M3 17c0-3.314 3.134-6 7-6s7 2.686 7 6"/>
+          <path d="M14 11l2 2 4-4" stroke-width="1.5"/>
+        </svg>
+        Share Access
+      </a>
+      <div class="nav-section-label">Account</div>
+      <a href="profile.html" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="10" cy="7" r="3"/>
+          <path d="M4 17c0-3.314 2.686-6 6-6s6 2.686 6 6"/>
+        </svg>
+        Profile
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar" id="sidebar-user-initial">J</div>
+        <div class="sidebar-user-info">
+          <div class="name" id="sidebar-user-name">Loading...</div>
+          <div class="role" id="sidebar-user-role">Owner</div>
+        </div>
+      </div>
+      <button class="logout-btn" data-action="logout">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M13 15l5-5-5-5M18 10H7"/>
+          <path d="M7 3H4a1 1 0 00-1 1v12a1 1 0 001 1h3"/>
+        </svg>
+        Sign out
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <div class="page-header">
+      <div class="page-header-left">
+        <div class="page-title">Vehicle Garage</div>
+        <div class="page-subtitle">All vehicles registered under your account</div>
+      </div>
+    </div>
+
+    <div class="page-body">
+
+      <!-- Filter row -->
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:24px;">
+        <button class="btn btn-ghost btn-sm filter-btn active" data-filter="all">All</button>
+        <button class="btn btn-ghost btn-sm filter-btn" data-filter="verified">Verified</button>
+        <button class="btn btn-ghost btn-sm filter-btn" data-filter="pending">Pending</button>
+      </div>
+
+      <!-- Vehicle grid — populated by vehicles.js -->
+      <div class="vehicles-grid" id="vehicles-grid">
+        <p style="color:var(--text-muted);font-size:0.875rem;grid-column:1/-1;">Loading vehicles...</p>
+      </div><!-- /vehicles-grid -->
+
+    </div><!-- /page-body -->
+  </main>
+
+</div><!-- /page-layout -->
+
+<script src="../../js/shared/auth.js"></script>
+<script src="../../js/shared/api.js"></script>
+<script src="../../js/shared/router.js"></script>
+<script src="../../js/user/vehicles.js"></script>
+</body>
+</html>

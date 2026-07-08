@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partner Login — Meraki AutoChain</title>
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/auth.css">
+</head>
+<body>
+
+<div class="auth-root">
+
+  <!-- Brand Panel -->
+  <div class="auth-brand">
+    <div class="auth-brand-grid"></div>
+
+    <div class="auth-logo">
+      <div class="auth-logo-mark">
+        <div class="auth-logo-icon">
+          <svg viewBox="0 0 18 18" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 14 L9 3 L16 14 H12.5 L9 8.5 L5.5 14 Z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="auth-logo-name">Meraki AutoChain</div>
+          <div class="auth-logo-sub">Partner Portal</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-brand-body">
+      <div class="auth-brand-eyebrow">Vehicle Verification Infrastructure</div>
+      <h1 class="auth-brand-headline">
+        The verification<br>record Kenya's<br>vehicles <span>trust.</span>
+      </h1>
+      <p class="auth-brand-desc">
+        Meraki AutoChain connects inspectors, dealers and insurance companies
+        on a shared verification layer. Every record is traceable. Every
+        inspection is permanent.
+      </p>
+    </div>
+
+    <div class="auth-stats">
+      <div>
+        <div class="auth-stat-value">12,400+</div>
+        <div class="auth-stat-label">Inspections recorded</div>
+      </div>
+      <div>
+        <div class="auth-stat-value">3 roles</div>
+        <div class="auth-stat-label">Inspector, Dealer, Insurance</div>
+      </div>
+      <div>
+        <div class="auth-stat-value">100%</div>
+        <div class="auth-stat-label">Traceable records</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth Panel -->
+  <div class="auth-panel">
+    <div class="auth-panel-inner">
+
+      <div class="auth-panel-label">Secure Partner Access</div>
+      <h2 class="auth-panel-title">Sign in</h2>
+      <p class="auth-panel-sub">Use the credentials provided by your administrator.</p>
+
+      <!-- Error message -->
+      <div class="auth-error-msg hidden" id="error-msg">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:1px">
+          <circle cx="10" cy="10" r="8"/><path d="M10 6v4M10 14h.01"/>
+        </svg>
+        <span id="error-text"></span>
+      </div>
+
+      <form class="auth-form" id="login-form" novalidate>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="partner@example.co.ke"
+            autocomplete="email"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <div class="auth-form-actions">
+          <button type="submit" class="btn btn-primary btn-lg auth-submit" id="submit-btn">
+            <span class="btn-label">Sign in to Portal</span>
+            <span class="auth-submit-spinner hidden btn-spinner"></span>
+          </button>
+        </div>
+      </form>
+
+      <div class="auth-footer">
+        <p>
+          Access is restricted to verified Meraki AutoChain partners.
+          Contact <a href="mailto:support@meraki.co.ke">support@meraki.co.ke</a>
+          if you need access or have trouble signing in.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="../../js/partner/router.js"></script>
+<script src="../../js/auth/login.js"></script>
+</body>
+</html>

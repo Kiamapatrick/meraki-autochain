@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meraki AutoChain — Partner Portal</title>
+  <style>
+    body {
+      margin: 0;
+      background: #071A2B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .loader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .loader-icon {
+      width: 36px;
+      height: 36px;
+      background: #1FA774;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .loader-dot {
+      width: 6px;
+      height: 6px;
+      background: rgba(245,247,250,0.25);
+      border-radius: 50%;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.25; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader">
+    <div class="loader-icon">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="white">
+        <path d="M2 14 L9 3 L16 14 H12.5 L9 8.5 L5.5 14 Z"/>
+      </svg>
+    </div>
+    <div class="loader-dot"></div>
+  </div>
+
+  <script>
+    const ROLE_REDIRECT = {
+      inspector: '/pages/partner/inspector/dashboard.html',
+      dealer:    '/pages/partner/dealer/dashboard.html',
+      insurance: '/pages/partner/insurance/dashboard.html',
+    };
+    const LOGIN = '/pages/partner/login.html';
+
+    function getSession() {
+      try {
+        const s = sessionStorage.getItem('meraki_session') || localStorage.getItem('meraki_session');
+        return s ? JSON.parse(s) : null;
+      } catch { return null; }
+    }
+
+    const session = getSession();
+    if (session && ROLE_REDIRECT[session.role]) {
+      window.location.replace(ROLE_REDIRECT[session.role]);
+    } else {
+      window.location.replace(LOGIN);
+    }
+  </script>
+</body>
+</html>

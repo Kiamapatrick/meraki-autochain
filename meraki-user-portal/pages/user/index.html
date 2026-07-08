@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — Meraki AutoChain</title>
+  <link rel="stylesheet" href="../../css/global.css" />
+  <link rel="stylesheet" href="../../css/auth.css" />
+</head>
+<body>
+<div class="auth-page">
+
+  <!-- LEFT: Identity panel -->
+  <div class="auth-panel">
+    <div class="auth-panel-logo">
+      <div class="wordmark">Meraki<span>.</span></div>
+      <div class="sub">AutoChain</div>
+    </div>
+
+    <div class="auth-panel-body">
+      <h2>Your vehicle's<br><em>permanent record.</em></h2>
+      <p>
+        Every vehicle has a history. Meraki AutoChain makes that history
+        verifiable, private and yours.
+      </p>
+
+      <div class="auth-features">
+        <div class="auth-feature">
+          <div class="auth-feature-dot"></div>
+          <span class="auth-feature-text">Verified inspection records</span>
+        </div>
+        <div class="auth-feature">
+          <div class="auth-feature-dot"></div>
+          <span class="auth-feature-text">Tamper-proof vehicle passports</span>
+        </div>
+        <div class="auth-feature">
+          <div class="auth-feature-dot"></div>
+          <span class="auth-feature-text">Controlled access sharing</span>
+        </div>
+        <div class="auth-feature">
+          <div class="auth-feature-dot"></div>
+          <span class="auth-feature-text">Blockchain-anchored history</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-panel-footer">
+      &copy; 2026 Meraki AutoChain Ltd. Nairobi, Kenya.
+    </div>
+  </div>
+
+  <!-- RIGHT: Form panel -->
+  <div class="auth-form-panel">
+    <div class="auth-form-inner">
+
+      <div class="auth-form-header">
+        <h1>Sign in</h1>
+        <p>Access your vehicle records and passports.</p>
+      </div>
+
+      <div class="auth-error" id="auth-error" role="alert"></div>
+
+      <div class="form-group">
+        <label class="form-label" for="email">Email address</label>
+        <input
+          class="form-input"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input
+          class="form-input"
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        />
+      </div>
+
+      <button class="auth-submit" id="login-btn" type="button">
+        Sign in
+      </button>
+
+      <p style="margin-top:20px; font-size:0.8125rem; color:var(--text-muted); text-align:center;">
+        Vehicle owner access only. Partner logins use a separate portal.
+      </p>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="../../js/shared/auth.js"></script>
+<script src="../../js/shared/api.js"></script>
+<script src="../../js/shared/router.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn       = document.getElementById('login-btn');
+    const emailEl   = document.getElementById('email');
+    const passEl    = document.getElementById('password');
+    const errorEl   = document.getElementById('auth-error');
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.classList.add('visible');
+    }
+
+    function clearError() {
+      errorEl.classList.remove('visible');
+    }
+
+    function setLoading(loading) {
+      btn.disabled = loading;
+      btn.innerHTML = loading
+        ? '<span class="spinner"></span> Signing in...'
+        : 'Sign in';
+    }
+
+    async function handleLogin() {
+      clearError();
+      const email    = emailEl.value.trim();
+      const password = passEl.value;
+
+      if (!email || !password) {
+        showError('Please enter your email and password.');
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const res = await API.auth.login(email, password);
+
+        if (!res.token || !res.user) {
+          showError('Unexpected response from server. Please try again.');
+          return;
+        }
+
+        /* Only allow role=user here */
+        if (res.user.role !== 'user') {
+          showError('This portal is for vehicle owners only. Partners sign in at the Partner Portal.');
+          return;
+        }
+
+        Auth.setSession(res.token, res.user);
+        window.location.href = '/dashboard.html';
+
+      } catch (err) {
+        if (err.status === 401) {
+          showError('Incorrect email or password.');
+        } else if (err.status === 403) {
+          showError('Your account is not yet approved.');
+        } else {
+          showError('Could not connect to the server. Please try again.');
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    btn.addEventListener('click', handleLogin);
+
+    passEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleLogin();
+    });
+  });
+</script>
+</body>
+</html>

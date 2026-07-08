@@ -1,0 +1,202 @@
+/* ─────────────────────────────────────────
+   MERAKI AUTOCHAIN — DEALER STYLES
+───────────────────────────────────────── */
+
+/* ── Inventory list ── */
+.inventory-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.inventory-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.1s;
+}
+
+.inventory-row:last-child {
+  border-bottom: none;
+}
+
+.inventory-row:hover {
+  background: #FAFBFD;
+}
+
+.inventory-row-reg {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--primary);
+  min-width: 120px;
+  padding: 4px 10px;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+
+.inventory-row-info {}
+
+.inventory-row-make {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.inventory-row-meta {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.inventory-row-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* Add vehicle modal trigger */
+.add-vehicle-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Verification request card */
+.request-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.request-item {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.request-item:last-child {
+  border-bottom: none;
+}
+
+.request-item-left {
+  flex: 1;
+}
+
+.request-vehicle {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.request-id {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.request-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.request-item-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* Share passport modal */
+.share-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 26, 43, 0.55);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.share-modal {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  width: 100%;
+  max-width: 460px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.share-modal-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.share-modal-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.share-modal-close {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: background 0.15s;
+}
+
+.share-modal-close:hover {
+  background: var(--surface-alt);
+}
+
+.share-modal-body {
+  padding: 22px;
+}
+
+.share-link-box {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 12px;
+  margin-top: 12px;
+}
+
+.share-link-text {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  flex: 1;
+  word-break: break-all;
+}
+
+.share-copy-btn {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  flex-shrink: 0;
+  cursor: pointer;
+}
