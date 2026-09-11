@@ -298,28 +298,28 @@ contract MerakiAutoChain {
     /**
      * Get full vehicle registration details.
      */
-    function getVehicle(string calldata merakiId)
-        external
-        view
-        returns (
-            bool    registered,
-            bytes32 vinHash,
-            uint256 registeredAt,
-            address registeredBy,
-            uint256 inspectionCount,
-            bool    active
-        )
-    {
-        Vehicle storage v = vehicles[merakiId];
-        return (
-            v.registered,
-            v.vinHash,
-            v.registeredAt,
-            v.registeredBy,
-            v.inspectionCount,
-            v.active
-        );
-    }
+function getVehicle(string calldata merakiId)
+    external
+    view
+    returns (
+        bool    registered,
+        bytes32 vinHash,
+        uint256 registeredAt,
+        address registeredBy,
+        uint256 totalInspections,
+        bool    active
+    )
+{
+    Vehicle storage v = vehicles[merakiId];
+    return (
+        v.registered,
+        v.vinHash,
+        v.registeredAt,
+        v.registeredBy,
+        v.inspectionCount,
+        v.active
+    );
+}
 
     /**
      * Get all inspection hashes for a vehicle, in chronological order.
