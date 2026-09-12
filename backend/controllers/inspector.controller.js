@@ -2,7 +2,7 @@ const Vehicle = require('../models/Vehicle');
 const Inspection = require('../models/Inspection');
 const Verification = require('../models/Verification');
 const { generateHash } = require('../services/hash.service');
-const { createProof } = require('../services/blockchain.service');
+const { createProof, registerVehicleOnChain } = require('../services/blockchain.service');
 
 // GET /api/inspector/dashboard
 const getDashboard = async (req, res) => {
@@ -109,6 +109,16 @@ const createInspection = async (req, res) => {
           createdBy: inspectorId,
           createdByRole: 'inspector',
         });
+
+        // --- Register vehicle on-chain (Phase C) ---
+        try {
+          const chainResult = await registerVehicleOnChain(vehicle.merakiId, vehicle.vin);
+          vehicle.blockchainTx = chainResult.transactionHash;
+          await vehicle.save();
+        } catch (chainError) {
+          console.error('On-chain vehicle registration failed:', chainError.message);
+          // Continue anyway — the vehicle still exists in Mongo; you can retry the chain call later.
+        }
       }
     }
 
@@ -179,10 +189,14 @@ const createInspection = async (req, res) => {
       hash,
       network: 'polygon',
       transactionHash: proofResponse.transactionHash,
-      status: 'pending',
+      status: proofResponse.status,
       timestamp: new Date(),
       serviceResponse: proofResponse,
     });
+
+    // Update inspection blockchain status to reflect on-chain confirmation
+    inspection.blockchainStatus = proofResponse.status;
+    await inspection.save();
 
     // --- 6. Mark vehicle as having at least one inspection ---
     if (vehicle.status === 'pending') {
@@ -215,7 +229,7 @@ const createInspection = async (req, res) => {
           hash: verification.hash,
           status: verification.status,
           network: verification.network,
-          blockchainNote: proofResponse.note,
+          transactionHash: proofResponse.transactionHash,
         },
       },
     });
@@ -376,9 +390,12 @@ const createCorrectionRecord = async (req, res) => {
       vehicleId: original.vehicleId._id,
       hash,
       network: 'polygon',
-      status: 'pending',
+      status: proofResponse.status,
       serviceResponse: proofResponse,
     });
+
+    correction.blockchainStatus = proofResponse.status;
+    await correction.save();
 
     res.status(201).json({
       success: true,
