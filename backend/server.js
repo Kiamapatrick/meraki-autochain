@@ -4,9 +4,13 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/db');
+const { connectBlockchain } = require('./config/blockchain');
 
 // --- Connect to MongoDB ---
 connectDB();
+
+// --- Connect to Polygon Amoy (operator wallet + contract instance) ---
+connectBlockchain();
 
 const app = express();
 
