@@ -171,7 +171,7 @@ const createInspection = async (req, res) => {
     });
 
     // --- 5. Create blockchain verification proof ---
-    const proofResponse = await createProof(hash);
+    const proofResponse = await createProof(vehicle.merakiId, hash);
 
     const verification = await Verification.create({
       inspectionId: inspection._id,
@@ -369,7 +369,7 @@ const createCorrectionRecord = async (req, res) => {
       correctionReason,
     });
 
-    const proofResponse = await createProof(hash);
+    const proofResponse = await createProof(original.vehicleId.merakiId, hash);
 
     await Verification.create({
       inspectionId: correction._id,

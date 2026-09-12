@@ -1,38 +1,55 @@
+const { ethers } = require('ethers');
+const { getContract } = require('../config/blockchain');
+
 /**
- * Blockchain service - Polygon integration (future phase).
- *
- * Current behaviour:
- * Hashes are generated locally and stored in MongoDB.
- * The structure mirrors what the on-chain call will eventually send,
- * so the migration to Polygon requires no model changes.
- *
- * When Polygon integration is active:
- * - createProof() will submit the hash to a smart contract
- * - The contract returns a transactionHash
- * - That transactionHash becomes the immutable public proof
+ * Registers a vehicle on-chain. Call this once, the first time
+ * a vehicle is assigned a Meraki ID.
  */
+const registerVehicleOnChain = async (merakiId, vin) => {
+  const contract = getContract();
+  const vinHash = ethers.keccak256(ethers.toUtf8Bytes(vin));
 
-const createProof = async (hash) => {
-  // Placeholder - returns a pending proof with the local hash
-  // Replace this body with the Polygon Web3/Ethers.js call
+  const tx = await contract.registerVehicle(merakiId, vinHash);
+  const receipt = await tx.wait();
+
   return {
-    status: 'pending',
-    hash,
-    network: 'polygon',
-    transactionHash: null,
-    timestamp: new Date().toISOString(),
-    note: 'Blockchain integration pending. Hash is stored locally.',
+    transactionHash: receipt.hash,
+    blockNumber: receipt.blockNumber,
   };
 };
 
-const verifyProof = async (hash, transactionHash) => {
-  // Placeholder - will query the smart contract to confirm the hash on-chain
+/**
+ * Anchors an inspection hash on-chain.
+ */
+const createProof = async (merakiId, hash) => {
+  const contract = getContract();
+  const recordHash = '0x' + hash;
+
+  const tx = await contract.recordInspection(merakiId, recordHash);
+  const receipt = await tx.wait();
+
   return {
-    verified: false,
-    message: 'On-chain verification not yet active.',
-    hash,
-    transactionHash,
+    status: 'confirmed',
+    transactionHash: receipt.hash,
+    blockNumber: receipt.blockNumber,
   };
 };
 
-module.exports = { createProof, verifyProof };
+/**
+ * Reads back an inspection hash to confirm it's really on-chain.
+ */
+const verifyProof = async (hash) => {
+  const contract = getContract();
+  const recordHash = '0x' + hash;
+
+  const [exists, timestamp, inspector, index] = await contract.verifyInspection(recordHash);
+
+  return {
+    exists,
+    timestamp: exists ? new Date(Number(timestamp) * 1000).toISOString() : null,
+    inspector: exists ? inspector : null,
+    index: exists ? Number(index) : null,
+  };
+};
+
+module.exports = { registerVehicleOnChain, createProof, verifyProof };
