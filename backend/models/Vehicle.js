@@ -14,6 +14,12 @@ const vehicleSchema = new mongoose.Schema(
       trim: true,
     },
 
+    // Transaction hash from registerVehicle() on Polygon Amoy
+    blockchainTx: {
+      type: String,
+      default: null,
+    },
+
     registrationNumber: {
       type: String,
       required: [true, 'Registration number is required'],
