@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,224 +9,244 @@
   <link rel="stylesheet" href="../../../css/partner.css">
   <link rel="stylesheet" href="../../../css/inspector.css">
 </head>
+
 <body>
 
-<div class="app-root">
-  <aside class="sidebar" id="sidebar"></aside>
+  <div class="app-root">
+    <aside class="sidebar" id="sidebar"></aside>
 
-  <div class="main-area">
-    <header class="topbar">
-      <div class="topbar-left">
-        <div class="topbar-breadcrumb">Inspector Portal</div>
-        <div class="topbar-title">New Inspection</div>
-      </div>
-      <div class="topbar-right">
-        <div class="profile-dropdown-wrap">
-          <div class="profile-trigger" id="profile-trigger">
-            <div class="profile-avatar" id="profile-avatar"></div>
-            <div class="profile-name" id="profile-name"></div>
-            <svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5" stroke-linecap="round"/></svg>
-          </div>
-          <div class="profile-dropdown" id="profile-dropdown">
-            <div class="profile-dropdown-header">
-              <div class="profile-dropdown-name" id="dd-name"></div>
-              <div class="profile-dropdown-email" id="dd-email"></div>
-            </div>
-            <div class="profile-dropdown-item" data-action="logout">
-              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 17H4.5A1.5 1.5 0 013 15.5v-11A1.5 1.5 0 014.5 3H8"/><path d="M13 14l4-4-4-4M17 10H8"/></svg>
-              Sign out
-            </div>
-          </div>
+    <div class="main-area">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-breadcrumb">Inspector Portal</div>
+          <div class="topbar-title">New Inspection</div>
         </div>
-      </div>
-    </header>
-
-    <main class="page-content">
-
-      <div class="page-header">
-        <div class="page-header-left">
-          <div class="page-eyebrow">Create Record</div>
-          <h1 class="page-title">New Inspection</h1>
-          <p class="page-subtitle">All submitted inspections create a permanent, verifiable record.</p>
-        </div>
-        <div class="page-header-actions">
-          <a href="dashboard.html" class="btn btn-ghost btn-sm">Cancel</a>
-        </div>
-      </div>
-
-      <!-- Form + Verification status -->
-      <div id="form-view">
-        <form class="inspection-form-shell" id="inspection-form" novalidate>
-
-          <!-- Section 1: Vehicle identity -->
-          <div class="form-section">
-            <div class="form-section-header">
-              <div class="form-section-number">1</div>
-              <div class="form-section-title">Vehicle Identity</div>
+        <div class="topbar-right">
+          <div class="profile-dropdown-wrap">
+            <div class="profile-trigger" id="profile-trigger">
+              <div class="profile-avatar" id="profile-avatar"></div>
+              <div class="profile-name" id="profile-name"></div>
+              <svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 8l5 5 5-5" stroke-linecap="round" />
+              </svg>
             </div>
-            <div class="form-section-body">
-              <div class="field">
-                <label for="reg_number">Registration Number</label>
-                <input type="text" id="reg_number" name="reg_number" placeholder="KAA 000A" required>
+            <div class="profile-dropdown" id="profile-dropdown">
+              <div class="profile-dropdown-header">
+                <div class="profile-dropdown-name" id="dd-name"></div>
+                <div class="profile-dropdown-email" id="dd-email"></div>
               </div>
-              <div class="field">
-                <label for="vin">VIN / Chassis Number</label>
-                <input type="text" id="vin" name="vin" placeholder="17-character VIN">
-              </div>
-              <div class="field">
-                <label for="make">Make</label>
-                <input type="text" id="make" name="make" placeholder="Toyota, Nissan, Isuzu..." required>
-              </div>
-              <div class="field">
-                <label for="model">Model</label>
-                <input type="text" id="model" name="model" placeholder="Fielder, Harrier, D-Max..." required>
-              </div>
-              <div class="field">
-                <label for="year">Year of Manufacture</label>
-                <input type="number" id="year" name="year" placeholder="2018" min="1980" max="2025">
-              </div>
-              <div class="field">
-                <label for="color">Colour</label>
-                <input type="text" id="color" name="color" placeholder="White, Silver, Black...">
+              <div class="profile-dropdown-item" data-action="logout">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M8 17H4.5A1.5 1.5 0 013 15.5v-11A1.5 1.5 0 014.5 3H8" />
+                  <path d="M13 14l4-4-4-4M17 10H8" />
+                </svg>
+                Sign out
               </div>
             </div>
           </div>
+        </div>
+      </header>
 
-          <!-- Section 2: Inspection details -->
-          <div class="form-section">
-            <div class="form-section-header">
-              <div class="form-section-number">2</div>
-              <div class="form-section-title">Inspection Details</div>
-            </div>
-            <div class="form-section-body">
-              <div class="field">
-                <label for="mileage">Odometer Reading (km)</label>
-                <input type="number" id="mileage" name="mileage" placeholder="85000" min="0">
+      <main class="page-content">
+
+        <div class="page-header">
+          <div class="page-header-left">
+            <div class="page-eyebrow">Create Record</div>
+            <h1 class="page-title">New Inspection</h1>
+            <p class="page-subtitle">All submitted inspections create a permanent, verifiable record.</p>
+          </div>
+          <div class="page-header-actions">
+            <a href="dashboard.html" class="btn btn-ghost btn-sm">Cancel</a>
+          </div>
+        </div>
+
+        <!-- Form + Verification status -->
+        <div id="form-view">
+          <form class="inspection-form-shell" id="inspection-form" novalidate>
+
+            <!-- Section 1: Vehicle identity -->
+            <div class="form-section">
+              <div class="form-section-header">
+                <div class="form-section-number">1</div>
+                <div class="form-section-title">Vehicle Identity</div>
               </div>
-              <div class="field">
-                <label for="inspection_date">Inspection Date</label>
-                <input type="date" id="inspection_date" name="inspection_date" required>
-              </div>
-              <div class="field field-full">
-                <label>Vehicle Condition</label>
-                <div class="condition-grid">
-                  <div class="condition-option">
-                    <input type="radio" name="condition" id="cond-excellent" value="excellent">
-                    <label class="condition-label" for="cond-excellent">Excellent</label>
-                  </div>
-                  <div class="condition-option">
-                    <input type="radio" name="condition" id="cond-good" value="good" checked>
-                    <label class="condition-label" for="cond-good">Good</label>
-                  </div>
-                  <div class="condition-option">
-                    <input type="radio" name="condition" id="cond-fair" value="fair">
-                    <label class="condition-label" for="cond-fair">Fair</label>
-                  </div>
-                  <div class="condition-option">
-                    <input type="radio" name="condition" id="cond-poor" value="poor">
-                    <label class="condition-label" for="cond-poor">Poor</label>
-                  </div>
+              <div class="form-section-body">
+                <div class="field">
+                  <label for="reg_number">Registration Number</label>
+                  <input type="text" id="reg_number" name="registrationNumber" placeholder="KAA 000A" required>
+                </div>
+                <div class="field">
+                  <label for="vin">VIN / Chassis Number</label>
+                  <input type="text" id="vin" name="vin" placeholder="17-character VIN">
+                </div>
+                <div class="field">
+                  <label for="make">Make</label>
+                  <input type="text" id="make" name="make" placeholder="Toyota, Nissan, Isuzu..." required>
+                </div>
+                <div class="field">
+                  <label for="model">Model</label>
+                  <input type="text" id="model" name="model" placeholder="Fielder, Harrier, D-Max..." required>
+                </div>
+                <div class="field">
+                  <label for="year">Year of Manufacture</label>
+                  <input type="number" id="year" name="year" placeholder="2018" min="1980" max="2025">
+                </div>
+                <div class="field">
+                  <label for="color">Colour</label>
+                  <input type="text" id="color" name="color" placeholder="White, Silver, Black...">
                 </div>
               </div>
-              <div class="field field-full">
-                <label for="notes">Inspection Notes</label>
-                <textarea id="notes" name="notes" placeholder="Describe the vehicle condition, any damage, notable observations..."></textarea>
-              </div>
             </div>
-          </div>
 
-          <!-- Section 3: Evidence -->
-          <div class="form-section">
-            <div class="form-section-header">
-              <div class="form-section-number">3</div>
-              <div class="form-section-title">Photos and Evidence</div>
-            </div>
-            <div class="form-section-body">
-              <div class="field-full" style="grid-column:1/-1">
-                <div class="upload-zone" id="upload-zone">
-                  <input type="file" id="photo-input" name="photos" multiple accept="image/*">
-                  <div class="upload-zone-icon">
-                    <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20 26V14M14 20l6-6 6 6"/>
-                      <rect x="5" y="5" width="30" height="30" rx="3"/>
-                    </svg>
-                  </div>
-                  <div class="upload-zone-text">Click to upload or drag photos here</div>
-                  <div class="upload-zone-sub">JPG, PNG, WEBP — max 10MB per file</div>
+            <!-- Section 2: Inspection details -->
+            <div class="form-section">
+              <div class="form-section-header">
+                <div class="form-section-number">2</div>
+                <div class="form-section-title">Inspection Details</div>
+              </div>
+              <div class="form-section-body">
+                <div class="field">
+                  <label for="mileage">Odometer Reading (km)</label>
+                  <input type="number" id="mileage" name="mileage" placeholder="85000" min="0">
                 </div>
-                <div class="upload-previews" id="upload-previews"></div>
+                <div class="field">
+                  <label for="inspection_date">Inspection Date</label>
+                  <input type="date" id="inspection_date" name="inspectionDate" required>
+                </div>
+                <div class="field field-full">
+                  <label>Vehicle Condition</label>
+                  <div class="condition-grid">
+                    <div class="condition-option">
+                      <input type="radio" name="condition" id="cond-excellent" value="excellent">
+                      <label class="condition-label" for="cond-excellent">Excellent</label>
+                    </div>
+                    <div class="condition-option">
+                      <input type="radio" name="condition" id="cond-good" value="good" checked>
+                      <label class="condition-label" for="cond-good">Good</label>
+                    </div>
+                    <div class="condition-option">
+                      <input type="radio" name="condition" id="cond-fair" value="fair">
+                      <label class="condition-label" for="cond-fair">Fair</label>
+                    </div>
+                    <div class="condition-option">
+                      <input type="radio" name="condition" id="cond-poor" value="poor">
+                      <label class="condition-label" for="cond-poor">Poor</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="field field-full">
+                  <label for="notes">Inspection Notes</label>
+                  <textarea id="notes" name="notes"
+                    placeholder="Describe the vehicle condition, any damage, notable observations..."></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3: Evidence -->
+            <div class="form-section">
+              <div class="form-section-header">
+                <div class="form-section-number">3</div>
+                <div class="form-section-title">Photos and Evidence</div>
+              </div>
+              <div class="form-section-body">
+                <div class="field-full" style="grid-column:1/-1">
+                  <div class="upload-zone" id="upload-zone">
+                    <input type="file" id="photo-input" name="photos" multiple accept="image/*">
+                    <div class="upload-zone-icon">
+                      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 26V14M14 20l6-6 6 6" />
+                        <rect x="5" y="5" width="30" height="30" rx="3" />
+                      </svg>
+                    </div>
+                    <div class="upload-zone-text">Click to upload or drag photos here</div>
+                    <div class="upload-zone-sub">JPG, PNG, WEBP — max 10MB per file</div>
+                  </div>
+                  <div class="upload-previews" id="upload-previews"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="flex flex-between" style="margin-top:8px">
+              <div id="form-error" class="text-danger t-small hidden"></div>
+              <div style="margin-left:auto;display:flex;gap:8px">
+                <a href="dashboard.html" class="btn btn-ghost">Discard</a>
+                <button type="submit" class="btn btn-primary" id="submit-btn">
+                  <span class="btn-label">Submit Inspection</span>
+                  <span class="auth-submit-spinner hidden btn-spinner"></span>
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Post-submission verification status -->
+        <div id="verify-view" class="hidden inspection-form-shell">
+          <div class="verify-status-card">
+            <div class="verify-status-header">
+              <div>
+                <div class="verify-status-title">Inspection Submitted</div>
+                <div class="verify-status-id" id="submitted-id"></div>
+              </div>
+              <span class="badge badge-pending">Processing</span>
+            </div>
+            <div class="verify-steps">
+              <div class="verify-step">
+                <div class="verify-step-icon done">
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M4 10l4.5 4.5L16 7" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="verify-step-text">Record submitted</div>
+                  <div class="verify-step-sub">Inspection data saved to Meraki servers</div>
+                </div>
+              </div>
+              <div class="verify-step">
+                <div class="verify-step-icon done" id="step-hash-icon">
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M4 10l4.5 4.5L16 7" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="verify-step-text">Record hash generated</div>
+                  <div class="verify-step-sub" id="step-hash-val">Computing...</div>
+                </div>
+              </div>
+              <div class="verify-step">
+                <div class="verify-step-icon pending" id="step-chain-icon">
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="10" cy="10" r="7.5" />
+                    <path d="M10 7v4l2.5 2" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="verify-step-text">Blockchain verification</div>
+                  <div class="verify-step-sub">Pending — will confirm within minutes</div>
+                </div>
               </div>
             </div>
           </div>
-
-          <!-- Submit -->
-          <div class="flex flex-between" style="margin-top:8px">
-            <div id="form-error" class="text-danger t-small hidden"></div>
-            <div style="margin-left:auto;display:flex;gap:8px">
-              <a href="dashboard.html" class="btn btn-ghost">Discard</a>
-              <button type="submit" class="btn btn-primary" id="submit-btn">
-                <span class="btn-label">Submit Inspection</span>
-                <span class="auth-submit-spinner hidden btn-spinner"></span>
-              </button>
-            </div>
-          </div>
-
-        </form>
-      </div>
-
-      <!-- Post-submission verification status -->
-      <div id="verify-view" class="hidden inspection-form-shell">
-        <div class="verify-status-card">
-          <div class="verify-status-header">
-            <div>
-              <div class="verify-status-title">Inspection Submitted</div>
-              <div class="verify-status-id" id="submitted-id"></div>
-            </div>
-            <span class="badge badge-pending">Processing</span>
-          </div>
-          <div class="verify-steps">
-            <div class="verify-step">
-              <div class="verify-step-icon done">
-                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4.5 4.5L16 7"/></svg>
-              </div>
-              <div>
-                <div class="verify-step-text">Record submitted</div>
-                <div class="verify-step-sub">Inspection data saved to Meraki servers</div>
-              </div>
-            </div>
-            <div class="verify-step">
-              <div class="verify-step-icon done" id="step-hash-icon">
-                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4.5 4.5L16 7"/></svg>
-              </div>
-              <div>
-                <div class="verify-step-text">Record hash generated</div>
-                <div class="verify-step-sub" id="step-hash-val">Computing...</div>
-              </div>
-            </div>
-            <div class="verify-step">
-              <div class="verify-step-icon pending" id="step-chain-icon">
-                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.5"/><path d="M10 7v4l2.5 2"/></svg>
-              </div>
-              <div>
-                <div class="verify-step-text">Blockchain verification</div>
-                <div class="verify-step-sub">Pending — will confirm within minutes</div>
-              </div>
-            </div>
+          <div style="margin-top:16px;display:flex;gap:8px">
+            <a href="dashboard.html" class="btn btn-ghost">Back to Dashboard</a>
+            <button class="btn btn-primary" id="new-inspection-btn">New Inspection</button>
           </div>
         </div>
-        <div style="margin-top:16px;display:flex;gap:8px">
-          <a href="dashboard.html" class="btn btn-ghost">Back to Dashboard</a>
-          <button class="btn btn-primary" id="new-inspection-btn">New Inspection</button>
-        </div>
-      </div>
 
-    </main>
+      </main>
+    </div>
   </div>
-</div>
 
-<script src="../../../js/partner/router.js"></script>
-<script src="../../../js/partner/sidebar.js"></script>
-<script src="../../../js/partner/profile.js"></script>
-<script src="../../../js/inspector/inspection.js"></script>
+  <script src="../../../js/partner/router.js"></script>
+  <script src="../../../js/partner/sidebar.js"></script>
+  <script src="../../../js/partner/profile.js"></script>
+  <script src="../../../js/inspector/inspection.js"></script>
 </body>
+
 </html>

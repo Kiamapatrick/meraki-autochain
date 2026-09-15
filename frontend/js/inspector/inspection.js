@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const formData = new FormData(form);
 
     // Validate required fields
-    const reg = formData.get('reg_number')?.trim();
+    const reg = formData.get('registrationNumber')?.trim();
     const make = formData.get('make')?.trim();
     const model = formData.get('model')?.trim();
-    const date = formData.get('inspection_date');
+    const date = formData.get('inspectionDate');
 
     if (!reg || !make || !model || !date) {
       showError('Please fill in all required fields: Registration, Make, Model and Inspection Date.');
@@ -113,8 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initUploadZone() {
-  const zone     = document.getElementById('upload-zone');
-  const input    = document.getElementById('photo-input');
+  const zone = document.getElementById('upload-zone');
+  const input = document.getElementById('photo-input');
   const previews = document.getElementById('upload-previews');
 
   zone.addEventListener('click', () => input.click());
