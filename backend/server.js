@@ -50,6 +50,7 @@ app.use('/api/insurance', require('./routes/insurance.routes'));
 app.use('/api/vehicles', require('./routes/vehicle.routes'));
 app.use('/api/sharing', require('./routes/sharing.routes'));
 app.use('/api/user', require('./routes/user.routes'));
+app.use('/api/verify', require('./routes/verify.routes'));
 
 // --- Health check ---
 app.get('/api/health', (req, res) => {

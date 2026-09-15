@@ -1,6 +1,8 @@
 const crypto = require('crypto');
 const Share = require('../models/Share');
 const Vehicle = require('../models/Vehicle');
+const Inspection = require('../models/Inspection');
+const Verification = require('../models/Verification');
 
 // Helper: generate a unique share code
 const generateCode = () => {
@@ -149,4 +151,48 @@ const listAllShareCodes = async (req, res) => {
   }
 };
 
-module.exports = { generateShareCode, listShareCodes, revokeShareCode, listAllShareCodes };
+// GET /api/sharing/:code — PUBLIC, no auth. What a buyer sees when sent a share link.
+const getSharedPassport = async (req, res) => {
+  try {
+    const code = req.params.code.toUpperCase();
+
+    const share = await Share.findOne({ code, status: 'active', expiresAt: { $gt: new Date() } });
+    if (!share) {
+      return res.status(404).json({ success: false, message: 'This share link is invalid or has expired.' });
+    }
+
+    const vehicle = await Vehicle.findById(share.vehicleId);
+    if (!vehicle) {
+      return res.status(404).json({ success: false, message: 'Vehicle not found.' });
+    }
+
+    const inspections = await Inspection.find({ vehicleId: vehicle._id })
+      .select('mileage condition inspectionDate hash blockchainStatus status createdAt')
+      .sort({ inspectionDate: -1 });
+
+    const verifications = await Verification.find({ vehicleId: vehicle._id })
+      .select('transactionHash status timestamp')
+      .sort({ timestamp: -1 });
+
+    res.status(200).json({
+      success: true,
+      passport: {
+        merakiId: vehicle.merakiId,
+        make: vehicle.make,
+        model: vehicle.model,
+        year: vehicle.year,
+        color: vehicle.color,
+        status: vehicle.status,
+        inspectionCount: inspections.length,
+        lastInspectionDate: inspections[0] ? inspections[0].inspectionDate : null,
+      },
+      inspections,
+      verifications,
+    });
+  } catch (error) {
+    console.error('Get shared passport error:', error);
+    res.status(500).json({ success: false, message: 'Could not retrieve shared passport.' });
+  }
+};
+
+module.exports = { generateShareCode, listShareCodes, revokeShareCode, listAllShareCodes, getSharedPassport };

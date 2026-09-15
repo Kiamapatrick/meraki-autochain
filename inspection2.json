@@ -1,0 +1,1 @@
+{"registrationNumber": "TEST002", "vin": "VIN12345678901235", "make": "Honda", "model": "Accord", "year": 2023, "mileage": 12000, "condition": "excellent", "inspectionDate": "2024-01-16", "checklist": {"engine": "pass", "transmission": "pass", "brakes": "pass", "suspension": "pass", "electricals": "pass", "bodywork": "pass", "interior": "pass", "tyres": "pass"}}

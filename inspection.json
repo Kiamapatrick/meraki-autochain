@@ -1,0 +1,1 @@
+{"registrationNumber": "TEST001", "vin": "VIN12345678901234", "make": "Toyota", "model": "Camry", "year": 2023, "mileage": 15000, "condition": "excellent", "inspectionDate": "2024-01-15", "checklist": {"engine": "pass", "transmission": "pass", "brakes": "pass", "suspension": "pass", "electricals": "pass", "bodywork": "pass", "interior": "pass", "tyres": "pass"}}

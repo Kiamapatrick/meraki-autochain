@@ -52,4 +52,29 @@ const verifyProof = async (hash) => {
   };
 };
 
-module.exports = { registerVehicleOnChain, createProof, verifyProof };
+/**
+ * Public, read-only check: is this vehicle registered, active, and inspected?
+ */
+const isVehicleVerifiedOnChain = async (merakiId) => {
+  const contract = getContract();
+  return await contract.isVehicleVerified(merakiId);
+};
+
+/**
+ * Public, read-only: pull the on-chain registration record for a vehicle.
+ */
+const getVehicleOnChain = async (merakiId) => {
+  const contract = getContract();
+  const [registered, vinHash, registeredAt, registeredBy, totalInspections, active] =
+    await contract.getVehicle(merakiId);
+
+  return {
+    registered,
+    registeredAt: registered ? new Date(Number(registeredAt) * 1000).toISOString() : null,
+    registeredBy: registered ? registeredBy : null,
+    totalInspections: Number(totalInspections),
+    active,
+  };
+};
+
+module.exports = { registerVehicleOnChain, createProof, verifyProof, isVehicleVerifiedOnChain, getVehicleOnChain };
