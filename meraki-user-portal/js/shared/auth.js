@@ -58,7 +58,7 @@ const Auth = {
   /* Log out and redirect */
   logout() {
     this.clearSession();
-    window.location.href = '/pages/user/login.html';
+    window.location.href = '/pages/user/index.html';
   },
 
   /* Inject user name into the sidebar */
