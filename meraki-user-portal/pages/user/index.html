@@ -152,7 +152,7 @@
         }
 
         Auth.setSession(res.token, res.user);
-        window.location.href = '/pages/user/dashboard.html';
+        window.location.href = 'dashboard.html';
 
       } catch (err) {
         if (err.status === 401) {

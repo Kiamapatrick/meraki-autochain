@@ -27,7 +27,7 @@ const Router = {
   /* Guard: redirect to login if not authenticated */
   requireUser() {
     if (!Auth.isLoggedIn()) {
-      window.location.href = '/pages/user/index.html';
+      window.location.href = 'index.html';
       return false;
     }
     return true;
@@ -36,7 +36,7 @@ const Router = {
   /* Guard: redirect to dashboard if already authenticated */
   requireGuest() {
     if (Auth.isLoggedIn()) {
-      window.location.href = '/pages/user/dashboard.html';
+      window.location.href = 'dashboard.html';
       return false;
     }
     return true;
@@ -59,7 +59,7 @@ const Router = {
   /* Navigate to a page */
   go(page, params = {}) {
     const query = new URLSearchParams(params).toString();
-    window.location.href = `/pages/user/${page}${query ? '?' + query : ''}`;
+    window.location.href = `${page}${query ? '?' + query : ''}`;
   }
 };
 

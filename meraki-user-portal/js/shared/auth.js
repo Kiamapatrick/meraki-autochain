@@ -42,7 +42,7 @@ const Auth = {
   /* Redirect to login if not authenticated */
   requireAuth() {
     if (!this.isLoggedIn()) {
-      window.location.href = '/pages/user/index.html';
+      window.location.href = 'index.html';
       return false;
     }
     return true;
@@ -51,14 +51,14 @@ const Auth = {
   /* Redirect away from login if already authenticated */
   redirectIfLoggedIn() {
     if (this.isLoggedIn()) {
-      window.location.href = '/pages/user/dashboard.html';
+      window.location.href = 'dashboard.html';
     }
   },
 
   /* Log out and redirect */
   logout() {
     this.clearSession();
-    window.location.href = '/pages/user/index.html';
+    window.location.href = 'index.html';
   },
 
   /* Inject user name into the sidebar */
