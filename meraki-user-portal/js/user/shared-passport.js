@@ -68,6 +68,6 @@ function formatDate(dateStr) {
 }
 
 function esc(str) {
-  return String(str || '').replace(/[&<>"']/g, c =>
-    ({'&':'&','<':'<','>':'>','"':'"',"'":'''}[c]));
+  return String(str || '').replace(/[&<>\"]/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":"'&#39;'"}[c]));
 }
