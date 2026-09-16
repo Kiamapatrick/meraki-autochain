@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vehicle Passport — Meraki AutoChain</title>
+  <link rel="stylesheet" href="../../css/global.css" />
+  <link rel="stylesheet" href="../../css/passport.css" />
+</head>
+<body>
+<div class="public-page">
+
+  <header class="public-header">
+    <div class="wordmark">Meraki<span>.</span></div>
+  </header>
+
+  <main class="public-main" id="public-main">
+    <div id="loading-state">
+      <p>Loading vehicle passport…</p>
+    </div>
+
+    <div id="error-state" style="display:none;">
+      <h2>Link not found</h2>
+      <p>This share link is invalid, has expired, or was revoked by the vehicle owner.</p>
+    </div>
+
+    <div id="passport-content" style="display:none;">
+      <div class="passport-header">
+        <div>
+          <h1 id="passport-vehicle-name">—</h1>
+          <p id="passport-vehicle-sub">—</p>
+        </div>
+        <span class="badge" id="passport-status-badge">—</span>
+      </div>
+
+      <div class="passport-meta">
+        <div><span>Meraki ID</span><strong id="passport-meraki-id">—</strong></div>
+        <div><span>Color</span><strong id="passport-color">—</strong></div>
+        <div><span>Inspections on record</span><strong id="passport-inspection-count">—</strong></div>
+        <div><span>Last inspected</span><strong id="passport-last-inspected">—</strong></div>
+      </div>
+
+      <h3>Inspection history</h3>
+      <div id="inspections-list"></div>
+    </div>
+  </main>
+
+  <footer class="public-footer">
+    <p>Verified on Meraki AutoChain — Kenya's vehicle trust infrastructure.</p>
+  </footer>
+
+</div>
+
+<script src="../../js/shared/api.js"></script>
+<script src="../../js/user/shared-passport.js"></script>
+</body>
+</html>

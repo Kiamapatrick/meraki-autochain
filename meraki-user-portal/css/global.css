@@ -452,3 +452,13 @@ p { color: var(--text-secondary); font-size: 0.9375rem; }
 @media (max-width: 560px) {
   .stat-row { grid-template-columns: 1fr; }
 }
+
+/* ── Public pages ── */
+.public-page { max-width: 720px; margin: 0 auto; padding: 32px 20px; }
+.public-header { margin-bottom: 32px; }
+.public-footer { margin-top: 48px; text-align: center; color: var(--text-muted); font-size: 0.875rem; }
+.inspection-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.verify-form { display: flex; gap: 8px; margin: 24px 0; }
+.verify-form input { flex: 1; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); }
+.verify-result.verified { color: var(--green); }
+.verify-result.unverified { color: #b45309; }

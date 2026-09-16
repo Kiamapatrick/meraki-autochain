@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify a Vehicle — Meraki AutoChain</title>
+  <link rel="stylesheet" href="../../css/global.css" />
+  <link rel="stylesheet" href="../../css/passport.css" />
+</head>
+<body>
+<div class="public-page">
+
+  <header class="public-header">
+    <div class="wordmark">Meraki<span>.</span></div>
+  </header>
+
+  <main class="public-main">
+    <h1>Verify a vehicle</h1>
+    <p>Enter a Meraki ID to check its on-chain verification status.</p>
+
+    <div class="verify-form">
+      <input type="text" id="meraki-id-input" placeholder="e.g. MC-YXF67CSP" />
+      <button id="verify-btn" class="btn btn-primary">Verify</button>
+    </div>
+
+    <div id="result-area" style="display:none;"></div>
+  </main>
+
+</div>
+
+<script src="../../js/shared/api.js"></script>
+<script src="../../js/user/verify.js"></script>
+</body>
+</html>

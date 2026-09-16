@@ -42,7 +42,7 @@ const Auth = {
   /* Redirect to login if not authenticated */
   requireAuth() {
     if (!this.isLoggedIn()) {
-      window.location.href = '/pages/user/login.html';
+      window.location.href = '/pages/user/index.html';
       return false;
     }
     return true;

@@ -46,7 +46,7 @@ async function loadPassport(merakiId) {
     /* ── Blockchain status ── */
     const indicatorEl  = document.getElementById('blockchain-indicator');
     const blockchainEl = document.getElementById('blockchain-status-text');
-    if (p.blockchainStatus === 'verified') {
+    if (p.blockchainStatus === 'confirmed') {
       if (indicatorEl)  indicatorEl.classList.remove('pending');
       if (blockchainEl) blockchainEl.textContent = 'Blockchain verified';
     } else {

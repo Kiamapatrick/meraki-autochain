@@ -94,7 +94,8 @@ async function handleGenerate() {
     const res = await API.sharing.generate(selectedVehicleId);
     const code = res.share?.code;
 
-    if (generatedCode) generatedCode.textContent = code;
+    const fullLink = `${window.location.origin}/pages/user/shared-passport.html?code=${code}`;
+    if (generatedCode) generatedCode.textContent = fullLink;
     if (codeDisplay)   codeDisplay.style.display = 'block';
 
     generateBtn.textContent = 'Generate new code';

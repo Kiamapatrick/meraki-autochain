@@ -16,18 +16,18 @@ const Router = {
 
   /* Pages where logged-in users should be redirected away */
   guestOnlyPages: [
-    'login.html'
+    'index.html'
   ],
 
   /* Current page filename */
   currentPage() {
-    return window.location.pathname.split('/').pop();
+    return window.location.pathname.split('/').pop() || 'index.html';
   },
 
   /* Guard: redirect to login if not authenticated */
   requireUser() {
     if (!Auth.isLoggedIn()) {
-      window.location.href = '/login.html';
+      window.location.href = '/pages/user/index.html';
       return false;
     }
     return true;
@@ -36,7 +36,7 @@ const Router = {
   /* Guard: redirect to dashboard if already authenticated */
   requireGuest() {
     if (Auth.isLoggedIn()) {
-      window.location.href = '/dashboard.html';
+      window.location.href = '/pages/user/dashboard.html';
       return false;
     }
     return true;
@@ -59,7 +59,7 @@ const Router = {
   /* Navigate to a page */
   go(page, params = {}) {
     const query = new URLSearchParams(params).toString();
-    window.location.href = `/${page}${query ? '?' + query : ''}`;
+    window.location.href = `/pages/user/${page}${query ? '?' + query : ''}`;
   }
 };
 

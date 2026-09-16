@@ -79,5 +79,15 @@ const API = {
   user: {
     profile:       ()       => API.get('/user/profile'),
     updateProfile: (data)   => API.put('/user/profile', data)
+  },
+
+  /* ── Public sharing view (no auth) ── */
+  publicSharing: {
+    view: (code) => API.get(`/sharing/${code}`, false)
+  },
+
+  /* ── Public verification (no auth) ── */
+  verify: {
+    check: (merakiId) => API.get(`/verify/${merakiId}`, false)
   }
 };
