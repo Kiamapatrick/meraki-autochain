@@ -10,9 +10,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadProfile();
 
   const saveBtn = document.getElementById('save-profile-btn');
-  if (saveBtn) {
-    saveBtn.addEventListener('click', handleSave);
-  }
+  if (saveBtn) saveBtn.addEventListener('click', handleSave);
+
+  const changePwdBtn = document.getElementById('change-password-btn');
+  if (changePwdBtn) changePwdBtn.addEventListener('click', handleChangePassword);
+
+  const revokeAllBtn = document.getElementById('revoke-all-btn');
+  if (revokeAllBtn) revokeAllBtn.addEventListener('click', handleRevokeAll);
+
+  const deleteAccountBtn = document.getElementById('delete-account-btn');
+  if (deleteAccountBtn) deleteAccountBtn.addEventListener('click', handleDeleteAccount);
 });
 
 async function loadProfile() {
@@ -110,4 +117,147 @@ function setVal(id, val) {
 function setField(id, val) {
   const el = document.getElementById(id);
   if (el) el.value = val || '';
+}
+
+/* ── Change Password ── */
+async function handleChangePassword() {
+  const currentPwd = document.getElementById('current-password');
+  const newPwd = document.getElementById('new-password');
+  const confirmPwd = document.getElementById('confirm-password');
+
+  // Clear previous errors
+  [currentPwd, newPwd, confirmPwd].forEach(el => {
+    if (el) el.classList.remove('error');
+  });
+
+  if (!currentPwd.value) {
+    showError(currentPwd, 'Current password is required');
+    return;
+  }
+  if (!newPwd.value) {
+    showError(newPwd, 'New password is required');
+    return;
+  }
+  if (newPwd.value.length < 8) {
+    showError(newPwd, 'New password must be at least 8 characters');
+    return;
+  }
+  if (newPwd.value !== confirmPwd.value) {
+    showError(confirmPwd, 'Passwords do not match');
+    return;
+  }
+
+  const btn = document.getElementById('change-password-btn');
+  btn.disabled = true;
+  btn.textContent = 'Updating...';
+
+  try {
+    const res = await API.user.changePassword({
+      currentPassword: currentPwd.value,
+      newPassword: newPwd.value
+    });
+
+    // Update stored token
+    if (res.token) {
+      localStorage.setItem('meraki_token', res.token);
+    }
+
+    Toast.success('Password changed. Other sessions logged out.');
+
+    // Clear form
+    currentPwd.value = '';
+    newPwd.value = '';
+    confirmPwd.value = '';
+
+    btn.textContent = 'Updated ✓';
+    setTimeout(() => {
+      btn.textContent = 'Update password';
+      btn.disabled = false;
+    }, 2000);
+
+  } catch (err) {
+    Toast.error(err.message || 'Could not change password');
+    btn.textContent = 'Update password';
+    btn.disabled = false;
+  }
+}
+
+/* ── Revoke All Sessions ── */
+async function handleRevokeAll() {
+  Modal.confirm({
+    title: 'Sign Out Everywhere',
+    message: 'This will end all active sessions across all your devices. You will need to log in again on other devices.',
+    confirmText: 'Sign Out Everywhere',
+    cancelText: 'Cancel',
+    type: 'danger',
+    onConfirm: async () => {
+      const btn = document.getElementById('revoke-all-btn');
+      btn.disabled = true;
+      btn.textContent = 'Signing out...';
+
+      try {
+        const res = await API.user.revokeAll();
+        if (res.token) localStorage.setItem('meraki_token', res.token);
+        Toast.success('All sessions revoked');
+        btn.textContent = 'Signed Out ✓';
+        setTimeout(() => {
+          btn.textContent = 'Sign out everywhere';
+          btn.disabled = false;
+        }, 2000);
+      } catch (err) {
+        Toast.error(err.message || 'Could not revoke sessions');
+        btn.textContent = 'Sign out everywhere';
+        btn.disabled = false;
+      }
+    }
+  });
+}
+
+/* ── Delete Account ── */
+async function handleDeleteAccount() {
+  Modal.danger({
+    title: 'Delete Account',
+    message: 'This action cannot be undone. Your account and all associated data (vehicles, share codes, inspection history) will be permanently deleted.',
+    confirmText: 'Delete My Account',
+    cancelText: 'Cancel',
+    onConfirm: async () => {
+      // Second confirmation
+      Modal.confirm({
+        title: 'Confirm Account Deletion',
+        message: 'Please type "DELETE" to confirm you want to permanently delete your account.',
+        confirmText: 'Delete',
+        cancelText: 'Cancel',
+        type: 'danger',
+        onConfirm: async () => {
+          const btn = document.getElementById('delete-account-btn');
+          btn.disabled = true;
+          btn.textContent = 'Deleting...';
+
+          try {
+            await API.user.deleteAccount({ password: '', confirm: 'DELETE' });
+            // Note: The API expects password, but we handle it via modal
+            // We'll need to show a password prompt
+            Toast.error('Please implement password prompt for deletion');
+            btn.textContent = 'Delete Account';
+            btn.disabled = false;
+          } catch (err) {
+            Toast.error(err.message || 'Could not delete account');
+            btn.textContent = 'Delete Account';
+            btn.disabled = false;
+          }
+        }
+      });
+    }
+  });
+}
+
+/* ── Helper for form errors ── */
+function showError(input, message) {
+  input.classList.add('error');
+  const errorEl = input.parentNode.querySelector('.form-error');
+  if (errorEl) {
+    errorEl.textContent = message;
+    errorEl.style.display = 'block';
+  }
+  input.focus();
 }

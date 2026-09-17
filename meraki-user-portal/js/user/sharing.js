@@ -179,18 +179,26 @@ async function loadActiveShares() {
     /* Attach revoke handlers */
     tableBody.querySelectorAll('.revoke-btn').forEach(btn => {
       btn.addEventListener('click', async () => {
-        btn.disabled = true;
-        btn.textContent = 'Revoking...';
-        try {
-          await API.sharing.revoke(btn.dataset.code);
-          const row = btn.closest('.shares-table-row');
-          if (row) row.style.opacity = '0.4';
-          btn.textContent = 'Revoked';
-          await loadActiveShares();
-        } catch {
-          btn.textContent = 'Revoke';
-          btn.disabled = false;
-        }
+        Modal.confirm({
+          title: 'Revoke Share Code',
+          message: 'Are you sure you want to revoke this share code? The recipient will no longer be able to access the vehicle passport.',
+          confirmText: 'Revoke',
+          cancelText: 'Cancel',
+          type: 'danger',
+          onConfirm: async () => {
+            btn.disabled = true;
+            btn.textContent = 'Revoking...';
+            try {
+              await API.sharing.revoke(btn.dataset.code);
+              Toast.success('Share code revoked');
+              await loadActiveShares();
+            } catch (err) {
+              Toast.error(err.message || 'Could not revoke share code');
+              btn.textContent = 'Revoke';
+              btn.disabled = false;
+            }
+          }
+        });
       });
     });
 

@@ -148,28 +148,37 @@
               <div class="form-group">
                 <label class="form-label" for="current-password">Current password</label>
                 <input class="form-input" type="password" id="current-password" placeholder="Enter current password" />
+                <div class="form-error"></div>
               </div>
               <div class="form-row">
                 <div class="form-group" style="margin-bottom:0;">
                   <label class="form-label" for="new-password">New password</label>
                   <input class="form-input" type="password" id="new-password" placeholder="New password" />
+                  <div class="form-error"></div>
                 </div>
                 <div class="form-group" style="margin-bottom:0;">
                   <label class="form-label" for="confirm-password">Confirm password</label>
                   <input class="form-input" type="password" id="confirm-password" placeholder="Confirm new password" />
+                  <div class="form-error"></div>
                 </div>
               </div>
             </div>
             <div class="form-card-footer">
-              <button class="btn btn-primary btn-sm">Update password</button>
+              <button class="btn btn-primary btn-sm" id="change-password-btn">Update password</button>
             </div>
           </div>
 
           <!-- Danger zone -->
-          <div style="padding:20px; border:1px solid rgba(192,57,43,0.15); border-radius:var(--radius); background:rgba(192,57,43,0.03);">
-            <div style="font-size:0.875rem; font-weight:600; color:#C0392B; margin-bottom:8px;">Sign out of all devices</div>
-            <p style="font-size:0.8125rem; color:var(--text-muted); margin-bottom:14px;">This will end all active sessions across all devices.</p>
-            <button class="btn btn-ghost btn-sm" style="border-color:rgba(192,57,43,0.2); color:#C0392B;">Sign out everywhere</button>
+          <div class="danger-zone">
+            <div class="danger-zone-title">Sign out of all devices</div>
+            <p class="danger-zone-text">This will end all active sessions across all devices.</p>
+            <button class="btn" id="revoke-all-btn">Sign out everywhere</button>
+          </div>
+
+          <div class="danger-zone">
+            <div class="danger-zone-title">Delete Account</div>
+            <p class="danger-zone-text">This action cannot be undone. Your account and all associated data will be permanently deleted.</p>
+            <button class="btn" id="delete-account-btn">Delete Account</button>
           </div>
 
         </div>
