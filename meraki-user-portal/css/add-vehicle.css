@@ -1,0 +1,296 @@
+/* ============================================================
+   MERAKI AUTOCHAIN — ADD VEHICLE STYLES
+   ============================================================ */
+
+.add-vehicle-layout {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ── Progress indicator ── */
+.add-vehicle-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  padding: 0 16px;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  position: relative;
+}
+
+.progress-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  right: -50%;
+  height: 2px;
+  background: var(--border-soft);
+  z-index: 0;
+}
+
+.progress-step.active::after,
+.progress-step.completed::after {
+  background: var(--green);
+}
+
+.progress-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--bg-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  position: relative;
+  z-index: 1;
+  transition: all var(--transition);
+}
+
+.progress-step.active .progress-circle {
+  border-color: var(--green);
+  color: var(--green);
+  background: rgba(31,167,116,0.1);
+}
+
+.progress-step.completed .progress-circle {
+  border-color: var(--green);
+  background: var(--green);
+  color: #fff;
+}
+
+.progress-step.completed .progress-circle::before {
+  content: '✓';
+}
+
+.progress-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.progress-step.active .progress-label {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* ── Form card ── */
+.add-vehicle-form {
+  background: var(--bg-white);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.form-step {
+  display: none;
+  padding: 32px;
+  animation: fadeIn 0.3s ease;
+}
+
+.form-step.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.step-header {
+  margin-bottom: 28px;
+}
+
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.step-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* ── Form grid ── */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-group { margin-bottom: 20px; }
+.form-group.full-width { grid-column: 1 / -1; }
+
+.form-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 7px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-input:focus {
+  border-color: var(--steel);
+  box-shadow: 0 0 0 3px rgba(18,59,93,0.08);
+}
+
+.form-input::placeholder { color: var(--text-light); }
+.form-input:disabled {
+  background: var(--bg);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.form-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.form-error {
+  font-size: 0.75rem;
+  color: #C0392B;
+  margin-top: 4px;
+  display: none;
+}
+
+.form-input.error { border-color: #C0392B; }
+.form-input.error + .form-error { display: block; }
+
+/* ── Form actions ── */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-soft);
+  margin-top: 8px;
+}
+
+.form-actions .btn { flex: 1; justify-content: center; max-width: 160px; }
+
+/* ── Review step ── */
+.review-section {
+  background: var(--bg);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.review-section-title {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 12px 16px;
+}
+
+.review-label { color: var(--text-muted); font-size: 0.8125rem; }
+.review-value { font-weight: 500; color: var(--navy); font-size: 0.875rem; }
+
+.review-value.empty { color: var(--text-light); font-style: italic; }
+
+/* ── Loading overlay ── */
+.form-loading {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 10;
+  border-radius: var(--radius-lg);
+}
+
+.form-loading.hidden { display: none; }
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-soft);
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Success state ── */
+.success-state {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(31,167,116,0.1);
+  border: 1px solid rgba(31,167,116,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.success-icon svg { width: 40px; height: 40px; color: var(--green); }
+
+.success-state h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.success-state p { color: var(--text-muted); margin-bottom: 24px; }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .add-vehicle-progress { padding: 0 8px; }
+  .progress-label { font-size: 0.625rem; }
+  .progress-circle { width: 24px; height: 24px; font-size: 0.6875rem; }
+  .form-step { padding: 24px 20px; }
+  .review-grid { grid-template-columns: 120px 1fr; }
+}

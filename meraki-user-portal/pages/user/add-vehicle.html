@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Vehicle — Meraki AutoChain</title>
+  <link rel="stylesheet" href="/meraki-user-portal/css/global.css" />
+  <link rel="stylesheet" href="/meraki-user-portal/css/user.css" />
+  <link rel="stylesheet" href="/meraki-user-portal/css/add-vehicle.css" />
+</head>
+<body>
+
+<div class="page-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="wordmark">Meraki<span>.</span></div>
+      <div class="sub">AutoChain — Owner Portal</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <a href="dashboard.html" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="7" height="7" rx="1"/>
+          <rect x="11" y="2" width="7" height="7" rx="1"/>
+          <rect x="2" y="11" width="7" height="7" rx="1"/>
+          <rect x="11" y="11" width="7" height="7" rx="1"/>
+        </svg>
+        Dashboard
+      </a>
+      <div class="nav-section-label">My Vehicles</div>
+      <a href="vehicles.html" class="nav-item active">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 10l1.5-5h11L17 10"/>
+          <rect x="2" y="10" width="16" height="5" rx="1"/>
+          <circle cx="5.5" cy="15.5" r="1.5"/>
+          <circle cx="14.5" cy="15.5" r="1.5"/>
+        </svg>
+        Vehicle Garage
+      </a>
+      <div class="nav-section-label">Access</div>
+      <a href="shared-access.html" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="10" cy="6" r="3"/>
+          <path d="M3 17c0-3.314 3.134-6 7-6s7 2.686 7 6"/>
+          <path d="M14 11l2 2 4-4" stroke-width="1.5"/>
+        </svg>
+        Share Access
+      </a>
+      <div class="nav-section-label">Account</div>
+      <a href="profile.html" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="10" cy="7" r="3"/>
+          <path d="M4 17c0-3.314 2.686-6 6-6s6 2.686 6 6"/>
+        </svg>
+        Profile
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar" id="sidebar-user-initial">J</div>
+        <div class="sidebar-user-info">
+          <div class="name" id="sidebar-user-name">Loading...</div>
+          <div class="role" id="sidebar-user-role">Owner</div>
+        </div>
+      </div>
+      <button class="logout-btn" data-action="logout">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M13 15l5-5-5-5M18 10H7"/>
+          <path d="M7 3H4a1 1 0 00-1 1v12a1 1 0 001 1h3"/>
+        </svg>
+        Sign out
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <div class="page-header">
+      <div class="page-header-left">
+        <div class="page-title">Add Vehicle</div>
+        <div class="page-subtitle">Register a new vehicle to your garage</div>
+      </div>
+      <a href="vehicles.html" class="btn btn-ghost btn-sm">← Back to garage</a>
+    </div>
+
+    <div class="page-body">
+      <div class="add-vehicle-layout">
+
+        <!-- Progress indicator -->
+        <div class="add-vehicle-progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" aria-label="Add vehicle progress">
+          <div class="progress-step active" data-step="1">
+            <div class="progress-circle">1</div>
+            <span class="progress-label">Basic Info</span>
+          </div>
+          <div class="progress-step" data-step="2">
+            <div class="progress-circle">2</div>
+            <span class="progress-label">Specs</span>
+          </div>
+          <div class="progress-step" data-step="3">
+            <div class="progress-circle">3</div>
+            <span class="progress-label">Review</span>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form id="add-vehicle-form" class="add-vehicle-form" novalidate>
+
+          <!-- Step 1: Basic Info -->
+          <div class="form-step active" data-step="1" role="tabpanel" aria-labelledby="step1-title">
+            <div class="step-header">
+              <h2 class="step-title" id="step1-title">Basic Information</h2>
+              <p class="step-subtitle">Enter the vehicle's identification details</p>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="registrationNumber">Registration Number <span aria-hidden="true">*</span></label>
+                <input class="form-input" type="text" id="registrationNumber" name="registrationNumber" placeholder="e.g. KDG 421C" required autocomplete="off" />
+                <div class="form-hint">Kenyan format: KXX 000X</div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="vin">VIN (Chassis Number)</label>
+                <input class="form-input" type="text" id="vin" name="vin" placeholder="e.g. NZE164-0093742" autocomplete="off" />
+                <div class="form-hint">Optional but recommended</div>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="make">Make <span aria-hidden="true">*</span></label>
+                <input class="form-input" type="text" id="make" name="make" placeholder="e.g. Toyota" required autocomplete="off" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="model">Model <span aria-hidden="true">*</span></label>
+                <input class="form-input" type="text" id="model" name="model" placeholder="e.g. Axio" required autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="year">Year <span aria-hidden="true">*</span></label>
+                <input class="form-input" type="number" id="year" name="year" placeholder="2019" min="1900" max="2027" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="color">Color</label>
+                <input class="form-input" type="text" id="color" name="color" placeholder="e.g. Silver" autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-ghost btn-sm" disabled>Back</button>
+              <button type="button" class="btn btn-primary btn-sm" id="next-1">Next</button>
+            </div>
+          </div>
+
+          <!-- Step 2: Specs -->
+          <div class="form-step" data-step="2" role="tabpanel" aria-labelledby="step2-title" hidden>
+            <div class="step-header">
+              <h2 class="step-title" id="step2-title">Specifications</h2>
+              <p class="step-subtitle">Technical details for the vehicle passport</p>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="fuelType">Fuel Type</label>
+                <select class="form-input" id="fuelType" name="fuelType">
+                  <option value="">Select fuel type</option>
+                  <option value="petrol">Petrol</option>
+                  <option value="diesel">Diesel</option>
+                  <option value="electric">Electric</option>
+                  <option value="hybrid">Hybrid</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="transmission">Transmission</label>
+                <select class="form-input" id="transmission" name="transmission">
+                  <option value="">Select transmission</option>
+                  <option value="manual">Manual</option>
+                  <option value="automatic">Automatic</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="bodyType">Body Type</label>
+                <select class="form-input" id="bodyType" name="bodyType">
+                  <option value="">Select body type</option>
+                  <option value="sedan">Sedan</option>
+                  <option value="hatchback">Hatchback</option>
+                  <option value="suv">SUV</option>
+                  <option value="pickup">Pickup</option>
+                  <option value="van">Van</option>
+                  <option value="coupe">Coupe</option>
+                  <option value="wagon">Wagon</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="engineCapacity">Engine Capacity</label>
+                <input class="form-input" type="text" id="engineCapacity" name="engineCapacity" placeholder="e.g. 1500cc" autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-ghost btn-sm" id="back-2">Back</button>
+              <button type="button" class="btn btn-primary btn-sm" id="next-2">Next</button>
+            </div>
+          </div>
+
+          <!-- Step 3: Review -->
+          <div class="form-step" data-step="3" role="tabpanel" aria-labelledby="step3-title" hidden>
+            <div class="step-header">
+              <h2 class="step-title" id="step3-title">Review & Submit</h2>
+              <p class="step-subtitle">Verify all details before registering</p>
+            </div>
+
+            <div class="review-section">
+              <div class="review-section-title">Basic Information</div>
+              <div class="review-grid">
+                <span class="review-label">Registration Number</span>
+                <span class="review-value empty" data-field="registrationNumber">—</span>
+                <span class="review-label">VIN</span>
+                <span class="review-value empty" data-field="vin">—</span>
+                <span class="review-label">Make</span>
+                <span class="review-value empty" data-field="make">—</span>
+                <span class="review-label">Model</span>
+                <span class="review-value empty" data-field="model">—</span>
+                <span class="review-label">Year</span>
+                <span class="review-value empty" data-field="year">—</span>
+                <span class="review-label">Color</span>
+                <span class="review-value empty" data-field="color">—</span>
+              </div>
+            </div>
+
+            <div class="review-section">
+              <div class="review-section-title">Specifications</div>
+              <div class="review-grid">
+                <span class="review-label">Fuel Type</span>
+                <span class="review-value empty" data-field="fuelType">—</span>
+                <span class="review-label">Transmission</span>
+                <span class="review-value empty" data-field="transmission">—</span>
+                <span class="review-label">Body Type</span>
+                <span class="review-value empty" data-field="bodyType">—</span>
+                <span class="review-label">Engine Capacity</span>
+                <span class="review-value empty" data-field="engineCapacity">—</span>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-ghost btn-sm" id="back-3">Back</button>
+              <button type="submit" class="btn btn-primary btn-sm" id="submit-btn">Register Vehicle</button>
+            </div>
+          </div>
+
+          <!-- Loading overlay -->
+          <div class="form-loading hidden" id="form-loading" role="status" aria-live="polite">
+            <div class="spinner"></div>
+            <span>Registering vehicle...</span>
+          </div>
+
+          <!-- Success state -->
+          <div class="success-state hidden" id="success-state" role="status" aria-live="polite">
+            <div class="success-icon">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M2 8l4 4 8-8"/>
+              </svg>
+            </div>
+            <h2>Vehicle Registered!</h2>
+            <p>Your vehicle has been added to your garage and assigned a Meraki ID.</p>
+            <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+              <a href="vehicles.html" class="btn btn-ghost btn-sm">View Garage</a>
+              <a href="#" class="btn btn-primary btn-sm" id="view-passport-btn">View Passport</a>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script src="/meraki-user-portal/js/shared/auth.js"></script>
+<script src="/meraki-user-portal/js/shared/api.js"></script>
+<script src="/meraki-user-portal/js/shared/router.js"></script>
+<script src="/meraki-user-portal/js/shared/toast.js"></script>
+<script src="/meraki-user-portal/js/shared/mobile-sidebar.js"></script>
+<script src="/meraki-user-portal/js/shared/modal.js"></script>
+<script src="/meraki-user-portal/js/user/add-vehicle.js"></script>
+</body>
+</html>
