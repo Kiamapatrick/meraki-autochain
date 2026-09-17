@@ -19,9 +19,11 @@
     <p>Enter a Meraki ID to check its on-chain verification status.</p>
 
     <div class="verify-form">
-      <input type="text" id="meraki-id-input" placeholder="e.g. MC-YXF67CSP" />
+      <input type="text" id="meraki-id-input" placeholder="e.g. MC-YXF67CSP" autocomplete="off" />
       <button id="verify-btn" class="btn btn-primary">Verify</button>
     </div>
+
+    <div id="recent-searches" class="recent-searches" style="display:none;"></div>
 
     <div id="result-area" style="display:none;"></div>
   </main>

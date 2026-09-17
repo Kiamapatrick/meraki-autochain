@@ -70,6 +70,10 @@
 .verify-result.unverified { border-color: rgba(180,130,30,0.3); }
 .verify-result.unverified h3 { color: #B4821E; }
 
+/* ── Recent searches ── */
+.recent-searches { margin: 24px 0; }
+.recent-search-btn:hover { background: var(--bg-white); border-color: var(--steel); color: var(--navy); }
+
 /* ── Responsive ── */
 @media (max-width: 640px) {
   .public-page { padding: 24px 16px; }

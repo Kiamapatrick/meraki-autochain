@@ -46,6 +46,31 @@ document.addEventListener('DOMContentLoaded', async () => {
       listEl.innerHTML = '<p>No inspections recorded yet.</p>';
     }
 
+    // Copy link button
+    const copyLinkBtn = document.getElementById('copy-link-btn');
+    if (copyLinkBtn) {
+      const shareUrl = window.location.href;
+      copyLinkBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          const originalText = copyLinkBtn.innerHTML;
+          copyLinkBtn.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M2 8l4 4 8-8"/>
+            </svg>
+            Copied!
+          `;
+          setTimeout(() => { copyLinkBtn.innerHTML = originalText; }, 2000);
+        } catch {}
+      });
+    }
+
+    // Print button
+    const printBtn = document.getElementById('print-btn');
+    if (printBtn) {
+      printBtn.addEventListener('click', () => window.print());
+    }
+
     loadingEl.style.display = 'none';
     contentEl.style.display = 'block';
 
@@ -68,6 +93,6 @@ function formatDate(dateStr) {
 }
 
 function esc(str) {
-  return String(str || '').replace(/[&<>\"]/g, c =>
-    ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":"'&#39;'"}[c]));
+  return String(str || '').replace(/[&<>"']/g, c =>
+    ({'&':'&','<':'<','>':'>','"':'"',"'":'''}[c]));
 }

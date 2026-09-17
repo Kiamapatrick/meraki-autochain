@@ -162,6 +162,16 @@
 
 #passport-last-inspected { font-size: 0.8125rem; font-weight: 400; }
 
+/* ── Passport actions ── */
+.passport-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.passport-actions .btn { flex: 1; min-width: 140px; }
+
 /* ── Inspection history ── */
 #passport-content h3 {
   font-size: 0.9375rem;
@@ -210,4 +220,14 @@
   .inspection-row { grid-template-columns: 1fr 1fr; }
   .inspection-row > div:nth-child(1),
   .inspection-row > div:nth-child(2) { grid-column: span 1; }
+}
+
+/* ── Print styles ── */
+@media print {
+  .public-page { max-width: 100%; padding: 0; }
+  .public-header, .public-footer, .passport-actions, .copy-btn { display: none; }
+  .passport-header { background: #071A2B !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .passport-meta > div { border: 1px solid #ccc !important; }
+  .inspection-row { border-bottom: 1px solid #eee !important; }
+  .badge { border: 1px solid currentColor !important; }
 }
