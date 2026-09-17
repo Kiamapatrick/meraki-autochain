@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-const generateToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
+const generateToken = (userId, tokenVersion = 0) => {
+  return jwt.sign({ id: userId, tokenVersion }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN || '7d',
   });
 };
@@ -107,7 +107,7 @@ const login = async (req, res) => {
       });
     }
 
-    const token = generateToken(user._id);
+    const token = generateToken(user._id, user.tokenVersion);
 
     res.status(200).json({
       success: true,
@@ -119,6 +119,7 @@ const login = async (req, res) => {
         role: user.role,
         partnerStatus: user.partnerStatus,
         organization: user.organization,
+        tokenVersion: user.tokenVersion,
       },
     });
   } catch (error) {

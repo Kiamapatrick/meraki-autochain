@@ -49,6 +49,14 @@ const requireAuth = async (req, res, next) => {
       });
     }
 
+    // Check token version for session invalidation
+    if (decoded.tokenVersion !== undefined && decoded.tokenVersion !== user.tokenVersion) {
+      return res.status(401).json({
+        success: false,
+        message: 'Session invalidated. Please log in again.',
+      });
+    }
+
     req.user = user;
     next();
   } catch (error) {

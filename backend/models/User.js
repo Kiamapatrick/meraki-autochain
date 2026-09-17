@@ -54,6 +54,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+
+    tokenVersion: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
@@ -82,16 +87,17 @@ userSchema.methods.comparePassword = async function (plainPassword) {
 };
 
 // Instance method: safe public representation (no password, no internal fields)
-userSchema.methods.toPublicJSON = function () {
-  return {
-    id: this._id,
-    name: this.name,
-    email: this.email,
-    role: this.role,
-    partnerStatus: this.partnerStatus,
-    organization: this.organization,
-    createdAt: this.createdAt,
+  userSchema.methods.toPublicJSON = function () {
+    return {
+      id: this._id,
+      name: this.name,
+      email: this.email,
+      role: this.role,
+      partnerStatus: this.partnerStatus,
+      organization: this.organization,
+      createdAt: this.createdAt,
+      tokenVersion: this.tokenVersion,
+    };
   };
-};
 
 module.exports = mongoose.model('User', userSchema);

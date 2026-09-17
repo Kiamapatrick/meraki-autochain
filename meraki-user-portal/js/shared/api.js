@@ -53,6 +53,16 @@ const API = {
     return this._handle(res);
   },
 
+  /* DELETE request */
+  async delete(path, body = {}, auth = true) {
+    const res = await fetch(`${BASE_URL}${path}`, {
+      method: 'DELETE',
+      headers: this._headers(auth),
+      body: JSON.stringify(body)
+    });
+    return this._handle(res);
+  },
+
   /* ── Auth endpoints ── */
   auth: {
     login:   (email, password) => API.post('/auth/login', { email, password }, false),
@@ -64,7 +74,8 @@ const API = {
     list:       ()       => API.get('/vehicles/my'),
     get:        (id)     => API.get(`/vehicles/${id}`),
     passport:   (id)     => API.get(`/vehicles/${id}/passport`),
-    history:    (id)     => API.get(`/vehicles/${id}/history`)
+    history:    (id)     => API.get(`/vehicles/${id}/history`),
+    create:     (data)   => API.post('/vehicles', data)
   },
 
   /* ── Sharing endpoints ── */
@@ -77,8 +88,11 @@ const API = {
 
   /* ── User profile ── */
   user: {
-    profile:       ()       => API.get('/user/profile'),
-    updateProfile: (data)   => API.put('/user/profile', data)
+    profile:        ()       => API.get('/user/profile'),
+    updateProfile:  (data)   => API.put('/user/profile', data),
+    changePassword: (data)   => API.put('/user/password', data),
+    revokeAll:      ()       => API.post('/auth/revoke-all'),
+    deleteAccount:  (data)   => API.delete('/user/account', data)
   },
 
   /* ── Public sharing view (no auth) ── */

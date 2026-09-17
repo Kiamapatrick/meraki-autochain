@@ -91,4 +91,96 @@ const getVehiclePassport = async (req, res) => {
   }
 };
 
-module.exports = { getMyVehicles, getVehicleDetail, getVehiclePassport };
+// POST /api/vehicles
+// Create a new vehicle for the current user
+const createVehicle = async (req, res) => {
+  try {
+    const {
+      registrationNumber,
+      vin,
+      make,
+      model,
+      year,
+      color,
+      engineCapacity,
+      fuelType,
+      transmission,
+      bodyType,
+    } = req.body;
+
+    // Validate required fields
+    if (!registrationNumber || !make || !model || !year) {
+      return res.status(400).json({
+        success: false,
+        message: 'Registration number, make, model and year are required.',
+      });
+    }
+
+    // Check for duplicate registration number (user can have multiple vehicles but not same plate)
+    const existingReg = await Vehicle.findOne({
+      registrationNumber: registrationNumber.toUpperCase(),
+      owner: req.user._id,
+    });
+    if (existingReg) {
+      return res.status(409).json({
+        success: false,
+        message: 'You already have a vehicle with this registration number.',
+      });
+    }
+
+    // Check for duplicate VIN if provided
+    if (vin) {
+      const existingVin = await Vehicle.findOne({ vin: vin.toUpperCase() });
+      if (existingVin) {
+        return res.status(409).json({
+          success: false,
+          message: 'A vehicle with this VIN already exists.',
+        });
+      }
+    }
+
+    const vehicle = await Vehicle.create({
+      registrationNumber: registrationNumber.toUpperCase(),
+      vin: vin ? vin.toUpperCase() : undefined,
+      make,
+      model,
+      year: Number(year),
+      color,
+      engineCapacity,
+      fuelType,
+      transmission,
+      bodyType,
+      owner: req.user._id,
+      createdBy: req.user._id,
+      createdByRole: req.user.role,
+      status: 'pending',
+    });
+
+    res.status(201).json({
+      success: true,
+      message: 'Vehicle registered successfully.',
+      vehicle,
+    });
+  } catch (error) {
+    console.error('Create vehicle error:', error);
+
+    if (error.name === 'ValidationError') {
+      const messages = Object.values(error.errors).map((e) => e.message);
+      return res.status(400).json({
+        success: false,
+        message: messages.join(' '),
+      });
+    }
+
+    if (error.code === 11000) {
+      return res.status(409).json({
+        success: false,
+        message: 'A vehicle with this identifier already exists.',
+      });
+    }
+
+    res.status(500).json({ success: false, message: 'Could not register vehicle.' });
+  }
+};
+
+module.exports = { getMyVehicles, getVehicleDetail, getVehiclePassport, createVehicle };
