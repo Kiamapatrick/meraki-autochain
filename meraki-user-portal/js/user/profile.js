@@ -17,8 +17,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function loadProfile() {
   try {
-    const data = await API.user.profile();
-    const user = data.user;
+    const [profileData, vehicleData] = await Promise.all([
+      API.user.profile(),
+      API.vehicles.list()
+    ]);
+
+    const user = profileData.user;
     if (!user) return;
 
     // Update stored session with fresh data from server
@@ -43,6 +47,10 @@ async function loadProfile() {
     if (sinceEl && user.createdAt) {
       sinceEl.textContent = new Date(user.createdAt).toLocaleDateString('en-KE', { month: 'long', year: 'numeric' });
     }
+
+    // Vehicles count
+    const vehiclesCount = vehicleData.vehicles?.length || 0;
+    setVal('vehicles-count', vehiclesCount);
 
   } catch (err) {
     console.warn('Could not load profile:', err);

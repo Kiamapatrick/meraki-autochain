@@ -175,53 +175,7 @@
             </div>
 
             <div class="timeline">
-
-              <div class="timeline-item">
-                <div class="timeline-dot verified"></div>
-                <div class="timeline-content">
-                  <div class="timeline-year">March 2026</div>
-                  <div class="timeline-event">
-                    <div class="timeline-event-title">Full inspection completed</div>
-                    <div class="timeline-event-details">
-                      <div class="timeline-event-detail">Mileage recorded: 47,200 km</div>
-                      <div class="timeline-event-detail">Body condition: Good</div>
-                      <div class="timeline-event-detail">Engine: No faults detected</div>
-                      <div class="timeline-event-detail">Inspector verified by Meraki</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="timeline-item">
-                <div class="timeline-dot verified"></div>
-                <div class="timeline-content">
-                  <div class="timeline-year">August 2025</div>
-                  <div class="timeline-event">
-                    <div class="timeline-event-title">Full inspection completed</div>
-                    <div class="timeline-event-details">
-                      <div class="timeline-event-detail">Mileage recorded: 39,800 km</div>
-                      <div class="timeline-event-detail">Body condition: Good</div>
-                      <div class="timeline-event-detail">Minor wear: Left rear tyre</div>
-                      <div class="timeline-event-detail">Inspector verified by Meraki</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="timeline-item">
-                <div class="timeline-dot verified"></div>
-                <div class="timeline-content">
-                  <div class="timeline-year">January 2024</div>
-                  <div class="timeline-event">
-                    <div class="timeline-event-title">Registration verified</div>
-                    <div class="timeline-event-details">
-                      <div class="timeline-event-detail">Vehicle registered on Meraki AutoChain</div>
-                      <div class="timeline-event-detail">Meraki ID assigned: MC-82HD92</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+              <!-- Populated dynamically by passport.js -->
             </div>
           </div>
 
@@ -241,19 +195,19 @@
             <div class="verification-panel-body">
               <div class="v-stat">
                 <div class="v-stat-label">Status</div>
-                <div class="v-stat-value green">Meraki Verified</div>
+                <div class="v-stat-value" id="v-stat-status">—</div>
               </div>
               <div class="v-stat">
                 <div class="v-stat-label">Last inspection</div>
-                <div class="v-stat-value">March 2026</div>
+                <div class="v-stat-value" id="v-stat-last-inspection">—</div>
               </div>
               <div class="v-stat">
                 <div class="v-stat-label">Total inspections</div>
-                <div class="v-stat-value">2</div>
+                <div class="v-stat-value" id="v-stat-total-inspections">—</div>
               </div>
               <div class="v-stat">
                 <div class="v-stat-label">Blockchain proof</div>
-                <div class="v-stat-value green">Verified</div>
+                <div class="v-stat-value" id="v-stat-blockchain-proof">—</div>
               </div>
             </div>
           </div>
@@ -270,11 +224,11 @@
             <div class="verification-panel-body">
               <div class="v-stat">
                 <div class="v-stat-label">Last verified mileage</div>
-                <div class="v-stat-value" style="font-size:1.5rem; font-family:var(--font-display);">47,200 <span style="font-size:0.875rem; color:var(--text-muted); font-weight:400;">km</span></div>
+                <div class="v-stat-value" id="v-stat-mileage">—</div>
               </div>
               <div class="v-stat">
                 <div class="v-stat-label">Recorded at</div>
-                <div class="v-stat-value">March 2026</div>
+                <div class="v-stat-value" id="v-stat-mileage-date">—</div>
               </div>
             </div>
           </div>
@@ -282,7 +236,7 @@
           <!-- Share this passport -->
           <div class="share-trigger">
             <p>Share this passport with a buyer or authorised party using a secure Meraki share code.</p>
-            <a href="shared-access.html?id=MC-82HD92" class="btn btn-primary" style="width:100%; justify-content:center;">
+            <a href="#" id="share-passport-link" class="btn btn-primary" style="width:100%; justify-content:center;">
               Generate share code
             </a>
           </div>

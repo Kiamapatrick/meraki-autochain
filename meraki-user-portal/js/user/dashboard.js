@@ -16,8 +16,83 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (nameEl) nameEl.textContent = `${greeting}, ${firstName}`;
   }
 
-  await Promise.all([loadVehicles(), loadShareCount()]);
+  await Promise.all([loadVehicles(), loadShareCount(), loadActivity()]);
 });
+
+async function loadActivity() {
+  try {
+    const vehicleData = await API.vehicles.list();
+    const vehicles = vehicleData.vehicles || [];
+
+    const allInspections = [];
+    for (const v of vehicles) {
+      try {
+        const inspData = await API.vehicles.history(v.merakiId);
+        const inspections = (inspData.inspections || []).map(i => ({
+          ...i,
+          vehicleName: `${v.make} ${v.model}`,
+          merakiId: v.merakiId
+        }));
+        allInspections.push(...inspections);
+      } catch {}
+    }
+
+    allInspections.sort((a, b) => new Date(b.inspectionDate) - new Date(a.inspectionDate));
+    const recent = allInspections.slice(0, 5);
+
+    const container = document.querySelector('.activity-list');
+    if (!container) return;
+
+    const header = container.querySelector('.activity-header');
+    const existingItems = container.querySelectorAll('.activity-item');
+    existingItems.forEach(el => el.remove());
+
+    if (!recent.length) {
+      container.insertAdjacentHTML('beforeend', `
+        <div class="activity-item">
+          <div class="activity-content">
+            <div class="activity-title">No recent activity</div>
+            <div class="activity-meta">Inspections will appear here once completed</div>
+          </div>
+          <div class="activity-time">—</div>
+        </div>
+      `);
+      return;
+    }
+
+    recent.forEach(insp => {
+      const item = document.createElement('div');
+      item.className = 'activity-item';
+      item.innerHTML = `
+        <div class="activity-icon-wrap green">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--green)">
+            <path d="M2 8l4 4 8-8"/>
+          </svg>
+        </div>
+        <div class="activity-content">
+          <div class="activity-title">Inspection completed</div>
+          <div class="activity-meta">${esc(insp.vehicleName)} &middot; ${esc(insp.merakiId)}</div>
+        </div>
+        <div class="activity-time">${formatRelativeTime(insp.inspectionDate)}</div>
+      `;
+      container.appendChild(item);
+    });
+
+  } catch (err) {
+    console.warn('Could not load activity:', err);
+  }
+}
+
+function formatRelativeTime(dateStr) {
+  if (!dateStr) return '—';
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const days = Math.floor(diff / 86400000);
+  if (days === 0) return 'Today';
+  if (days === 1) return 'Yesterday';
+  if (days < 7) return `${days} days ago`;
+  if (days < 30) return `${Math.floor(days/7)} wks ago`;
+  return formatDate(dateStr);
+}
 
 async function loadVehicles() {
   try {

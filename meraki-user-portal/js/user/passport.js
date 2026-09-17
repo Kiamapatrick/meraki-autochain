@@ -69,6 +69,16 @@ async function loadPassport(merakiId) {
     setTextIfExists('passport-last-inspected',p.lastInspectionDate ? formatDate(p.lastInspectionDate) : '—');
     setTextIfExists('passport-hash',          p.latestHash || '—');
 
+    /* ── Dynamic share link ── */
+    const shareLink = document.getElementById('share-passport-link');
+    if (shareLink) shareLink.href = `shared-access.html?id=${encodeURIComponent(p.merakiId)}`;
+
+    /* ── Render inspection timeline ── */
+    renderInspectionTimeline(data.inspections || []);
+
+    /* ── Render verification panel ── */
+    renderVerificationPanel(p, data.inspections || [], data.verifications || []);
+
     /* ── Page title ── */
     document.title = `${p.make} ${p.model} Passport — Meraki AutoChain`;
 
@@ -95,4 +105,93 @@ function formatDate(dateStr) {
   try {
     return new Date(dateStr).toLocaleDateString('en-KE', { day: 'numeric', month: 'long', year: 'numeric' });
   } catch { return dateStr; }
+}
+
+function renderInspectionTimeline(inspections) {
+  const container = document.querySelector('.timeline');
+  if (!container) return;
+
+  if (!inspections.length) {
+    container.innerHTML = `
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-event">
+            <div class="timeline-event-title">No inspections recorded yet</div>
+            <div class="timeline-event-details">
+              <div class="timeline-event-detail">Inspections will appear here once completed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = inspections.map((insp, i) => {
+    const isVerified = insp.blockchainStatus === 'confirmed' || insp.status === 'verified';
+    const details = [];
+
+    if (insp.mileage) details.push(`Mileage recorded: ${Number(insp.mileage).toLocaleString()} km`);
+    if (insp.condition) details.push(`Body condition: ${esc(insp.condition)}`);
+    if (insp.notes) details.push(`Notes: ${esc(insp.notes)}`);
+    if (insp.blockchainStatus === 'confirmed') details.push('Inspector verified by Meraki');
+
+    return `
+      <div class="timeline-item">
+        <div class="timeline-dot ${isVerified ? 'verified' : ''}"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">${formatDate(insp.inspectionDate)}</div>
+          <div class="timeline-event">
+            <div class="timeline-event-title">${esc(insp.condition || 'Inspection completed')}</div>
+            <div class="timeline-event-details">
+              ${details.map(d => `<div class="timeline-event-detail">${d}</div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderVerificationPanel(passport, inspections, verifications) {
+  const lastInspection = inspections[0];
+  const latestVerification = verifications[0];
+
+  // Verification status panel
+  const statusEl = document.getElementById('v-stat-status');
+  const lastInspectionEl = document.getElementById('v-stat-last-inspection');
+  const totalInspectionsEl = document.getElementById('v-stat-total-inspections');
+  const blockchainProofEl = document.getElementById('v-stat-blockchain-proof');
+
+  if (statusEl) {
+    statusEl.textContent = passport.status === 'verified' ? 'Meraki Verified' : 'Pending Verification';
+    statusEl.className = 'v-stat-value ' + (passport.status === 'verified' ? 'green' : '');
+  }
+  if (lastInspectionEl) lastInspectionEl.textContent = lastInspection ? formatDate(lastInspection.inspectionDate) : '—';
+  if (totalInspectionsEl) totalInspectionsEl.textContent = inspections.length;
+  if (blockchainProofEl) {
+    const verified = verifications.some(v => v.status === 'verified' || v.blockchainStatus === 'confirmed');
+    blockchainProofEl.textContent = verified ? 'Verified' : 'Pending';
+    blockchainProofEl.className = 'v-stat-value ' + (verified ? 'green' : '');
+  }
+
+  // Mileage record panel
+  const mileageEl = document.getElementById('v-stat-mileage');
+  const mileageDateEl = document.getElementById('v-stat-mileage-date');
+  if (mileageEl && lastInspection) {
+    mileageEl.innerHTML = `${Number(lastInspection.mileage).toLocaleString()} <span style="font-size:0.875rem; color:var(--text-muted); font-weight:400;">km</span>`;
+  } else if (mileageEl) {
+    mileageEl.textContent = '—';
+  }
+  if (mileageDateEl && lastInspection) {
+    mileageDateEl.textContent = formatDate(lastInspection.inspectionDate);
+  } else if (mileageDateEl) {
+    mileageDateEl.textContent = '—';
+  }
+}
+
+function esc(str) {
+  return String(str || '').replace(/[&<>"']/g, c =>
+    ({'&':'&','<':'<','>':'>','"':'"',"'":'''}[c]));
 }
