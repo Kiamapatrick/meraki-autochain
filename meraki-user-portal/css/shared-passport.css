@@ -1,0 +1,213 @@
+/* ============================================================
+   MERAKI AUTOCHAIN — PUBLIC SHARED PASSPORT STYLES
+   ============================================================ */
+
+.public-page { max-width: 720px; margin: 0 auto; padding: 32px 20px; }
+.public-header { margin-bottom: 32px; }
+.public-header .wordmark {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.public-header .wordmark span { color: var(--green); }
+
+.public-main { min-height: 300px; }
+.public-footer { margin-top: 48px; text-align: center; color: var(--text-muted); font-size: 0.875rem; }
+
+/* ── Loading / Error states ── */
+#loading-state, #error-state {
+  text-align: center;
+  padding: 64px 32px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+}
+
+#loading-state p, #error-state p {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+}
+
+#error-state h2 {
+  font-size: 1.25rem;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+/* ── Passport content ── */
+#passport-content { animation: fadeIn 0.3s ease; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.passport-header {
+  background: var(--navy);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.passport-header::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -40px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.passport-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.passport-brand {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 8px;
+}
+
+#passport-vehicle-name {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+#passport-vehicle-sub {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 4px;
+}
+
+.passport-meraki-id { text-align: right; }
+
+.passport-meraki-id .id-label {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 4px;
+}
+
+.passport-meraki-id .id-value {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--green);
+  letter-spacing: 0.04em;
+}
+
+.passport-status-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  position: relative;
+  z-index: 1;
+}
+
+#passport-status-badge {
+  flex-shrink: 0;
+}
+
+.passport-meta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.passport-meta > div {
+  background: var(--bg-white);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.passport-meta span {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.passport-meta strong {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+#passport-last-inspected { font-size: 0.8125rem; font-weight: 400; }
+
+/* ── Inspection history ── */
+#passport-content h3 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.inspection-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8125rem;
+}
+
+.inspection-row:first-child {
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid var(--border);
+}
+
+.inspection-row:last-child { border-bottom: none; }
+
+.inspection-row > div { color: var(--text-secondary); }
+
+/* ── Empty state ── */
+#inspections-list p {
+  text-align: center;
+  padding: 32px;
+  color: var(--text-muted);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .public-page { padding: 24px 16px; }
+  .passport-header { padding: 24px; }
+  #passport-vehicle-name { font-size: 1.5rem; }
+  .passport-meta { grid-template-columns: 1fr; }
+  .inspection-row { grid-template-columns: 1fr 1fr; }
+  .inspection-row > div:nth-child(1),
+  .inspection-row > div:nth-child(2) { grid-column: span 1; }
+}

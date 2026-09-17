@@ -418,6 +418,13 @@ p { color: var(--text-secondary); font-size: 0.9375rem; }
 
 .btn-green:hover { background: var(--green-dim); }
 
+.btn-danger {
+  background: #C0392B;
+  color: #FFFFFF;
+}
+
+.btn-danger:hover { background: #A93226; }
+
 .btn-sm {
   padding: 7px 14px;
   font-size: 0.8125rem;

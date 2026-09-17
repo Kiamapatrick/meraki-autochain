@@ -1,0 +1,206 @@
+/* ============================================================
+   MERAKI AUTOCHAIN — SHARING STYLES
+   ============================================================ */
+
+/* ── Vehicle selection ── */
+.share-vehicle-select {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.share-vehicle-option {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  cursor: pointer;
+  background: var(--bg-white);
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.share-vehicle-option:hover {
+  border-color: var(--steel);
+}
+
+.share-vehicle-option.selected {
+  border-color: var(--green);
+  background: rgba(31,167,116,0.04);
+}
+
+.share-vehicle-option .vehicle-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.share-vehicle-option .vehicle-icon svg {
+  width: 28px;
+  height: 28px;
+  opacity: 0.3;
+}
+
+.share-vehicle-info .name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.share-vehicle-info .id {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.share-vehicle-option.selected .vehicle-check {
+  display: flex;
+}
+
+.vehicle-check {
+  display: none;
+  margin-left: auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--green);
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vehicle-check svg { width: 10px; height: 10px; }
+
+/* ── Code display ── */
+.share-code-panel {
+  background: var(--navy);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.share-code-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 16px;
+}
+
+.share-code-value {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--green);
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.share-code-sub {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.7);
+  padding: 9px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.copy-btn:hover {
+  background: rgba(255,255,255,0.12);
+  color: #FFFFFF;
+}
+
+.copy-btn.copied {
+  background: rgba(31,167,116,0.2);
+  border-color: rgba(31,167,116,0.3);
+  color: var(--green);
+}
+
+/* ── Active shares table ── */
+.shares-table {
+  background: var(--bg-white);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.shares-table-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: grid;
+  grid-template-columns: 1fr 1fr auto auto;
+  gap: 16px;
+}
+
+.shares-table-row {
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border-soft);
+  display: grid;
+  grid-template-columns: 1fr 1fr auto auto;
+  gap: 16px;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.shares-table-row:last-child { border-bottom: none; }
+
+.shares-table-row .share-code-mono {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+}
+
+.revoke-btn {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding: 5px 10px;
+  border: 1px solid var(--border-soft);
+  border-radius: 2px;
+  transition: all var(--transition);
+}
+
+.revoke-btn:hover { color: #C0392B; border-color: rgba(192,57,43,0.3); }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .share-vehicle-select { grid-template-columns: 1fr; }
+  .shares-table-header { display: none; }
+  .shares-table-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 16px;
+  }
+  .shares-table-row .share-code-mono { font-size: 0.8125rem; }
+  .revoke-btn { width: 100%; text-align: center; }
+}

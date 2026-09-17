@@ -4,148 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profile — Meraki AutoChain</title>
-  <link rel="stylesheet" href="../../css/global.css" />
-  <link rel="stylesheet" href="../../css/user.css" />
-  <style>
-    .profile-layout {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 28px;
-      align-items: start;
-    }
-
-    .profile-card {
-      background: var(--bg-white);
-      border: 1px solid var(--border-soft);
-      border-radius: var(--radius);
-      padding: 28px 24px;
-      text-align: center;
-    }
-
-    .profile-avatar-lg {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: var(--navy);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      font-family: var(--font-display);
-      font-size: 1.625rem;
-      font-weight: 700;
-      color: var(--green);
-    }
-
-    .profile-card-name {
-      font-family: var(--font-display);
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 4px;
-    }
-
-    .profile-card-email {
-      font-size: 0.8125rem;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-
-    .profile-card-divider {
-      height: 1px;
-      background: var(--border-soft);
-      margin: 16px 0;
-    }
-
-    .profile-meta-item {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8125rem;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border-soft);
-    }
-
-    .profile-meta-item:last-child { border-bottom: none; }
-    .profile-meta-item .label { color: var(--text-muted); }
-    .profile-meta-item .value { font-weight: 500; color: var(--navy); }
-
-    /* ── Form ── */
-    .profile-form-card {
-      background: var(--bg-white);
-      border: 1px solid var(--border-soft);
-      border-radius: var(--radius);
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-
-    .form-card-header {
-      padding: 18px 24px;
-      border-bottom: 1px solid var(--border-soft);
-      font-size: 0.9375rem;
-      font-weight: 600;
-      color: var(--navy);
-      font-family: var(--font-display);
-    }
-
-    .form-card-body {
-      padding: 24px;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 0.8125rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      margin-bottom: 7px;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 10px 14px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-family: var(--font-body);
-      font-size: 0.9375rem;
-      color: var(--text-primary);
-      background: var(--bg-white);
-      outline: none;
-      transition: border-color var(--transition), box-shadow var(--transition);
-    }
-
-    .form-input:focus {
-      border-color: var(--steel);
-      box-shadow: 0 0 0 3px rgba(18,59,93,0.08);
-    }
-
-    .form-input:disabled {
-      background: var(--bg);
-      color: var(--text-muted);
-      cursor: not-allowed;
-    }
-
-    .form-card-footer {
-      padding: 16px 24px;
-      border-top: 1px solid var(--border-soft);
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
-
-    @media (max-width: 860px) {
-      .profile-layout { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-    }
-  </style>
+<link rel="stylesheet" href="/meraki-user-portal/css/global.css" />
+  <link rel="stylesheet" href="/meraki-user-portal/css/user.css" />
+  <link rel="stylesheet" href="/meraki-user-portal/css/profile.css" />
 </head>
 <body>
 
@@ -319,9 +180,12 @@
 
 </div><!-- /page-layout -->
 
-<script src="../../js/shared/auth.js"></script>
-<script src="../../js/shared/api.js"></script>
-<script src="../../js/shared/router.js"></script>
-<script src="../../js/user/profile.js"></script>
+<script src="/meraki-user-portal/js/shared/auth.js"></script>
+<script src="/meraki-user-portal/js/shared/api.js"></script>
+<script src="/meraki-user-portal/js/shared/router.js"></script>
+<script src="/meraki-user-portal/js/shared/toast.js"></script>
+<script src="/meraki-user-portal/js/shared/mobile-sidebar.js"></script>
+<script src="/meraki-user-portal/js/shared/modal.js"></script>
+<script src="/meraki-user-portal/js/user/profile.js"></script>
 </body>
 </html>
