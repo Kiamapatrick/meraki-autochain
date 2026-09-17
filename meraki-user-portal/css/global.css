@@ -469,3 +469,114 @@ p { color: var(--text-secondary); font-size: 0.9375rem; }
 .verify-form input { flex: 1; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); }
 .verify-result.verified { color: var(--green); }
 .verify-result.unverified { color: #b45309; }
+
+/* ── Accessibility ── */
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 600;
+  border-radius: var(--radius);
+  z-index: 10000;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 16px;
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+}
+
+/* Focus visible for keyboard navigation */
+:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+}
+
+/* Remove default focus for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: #000;
+    --border-soft: #333;
+    --text-muted: #333;
+    --text-light: #666;
+  }
+  .btn-primary, .btn-green { border: 2px solid currentColor; }
+  .badge { border: 2px solid currentColor; }
+}
+
+/* ── Screen reader only ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Loading states ── */
+.loading-skeleton {
+  background: linear-gradient(90deg, var(--border-soft) 25%, var(--border) 50%, var(--border-soft) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Print styles ── */
+@media print {
+  .sidebar, .page-header, .btn, .skip-link { display: none !important; }
+  .main-content { margin-left: 0; }
+  .page-body { padding: 0; }
+  body { background: #fff; }
+  .card, .vehicle-card, .passport-header-card { border: 1px solid #ccc !important; }
+}
+
+/* ── Additional responsive breakpoints ── */
+@media (max-width: 768px) {
+  .page-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .page-header > div:last-child { width: 100%; }
+  .page-header .btn { width: 100%; justify-content: center; }
+  .dashboard-grid { grid-template-columns: 1fr !important; }
+  .passport-layout { grid-template-columns: 1fr !important; }
+  .profile-layout { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr !important; }
+  .form-actions { flex-direction: column; gap: 8px; }
+  .form-actions .btn { width: 100%; }
+  .welcome-block { padding: 20px; }
+  .welcome-name { font-size: 1.25rem; }
+  .stat-row { grid-template-columns: 1fr !important; }
+  .vehicles-grid { grid-template-columns: 1fr !important; }
+  .inspection-row { grid-template-columns: 1fr !important; }
+  .passport-meta { grid-template-columns: 1fr !important; }
+  .verify-form { flex-direction: column; }
+}
