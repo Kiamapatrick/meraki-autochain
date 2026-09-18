@@ -27,8 +27,8 @@ async function loadActivity() {
     const allInspections = [];
     for (const v of vehicles) {
       try {
-        const inspData = await API.vehicles.history(v.merakiId);
-        const inspections = (inspData.inspections || []).map(i => ({
+        const passportData = await API.vehicles.passport(v.merakiId);
+        const inspections = (passportData.inspections || []).map(i => ({
           ...i,
           vehicleName: `${v.make} ${v.model}`,
           merakiId: v.merakiId

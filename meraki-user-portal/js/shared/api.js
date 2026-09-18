@@ -74,7 +74,6 @@ const API = {
     list:       ()       => API.get('/vehicles/my'),
     get:        (id)     => API.get(`/vehicles/${id}`),
     passport:   (id)     => API.get(`/vehicles/${id}/passport`),
-    history:    (id)     => API.get(`/vehicles/${id}/history`),
     create:     (data)   => API.post('/vehicles', data)
   },
 
@@ -91,7 +90,7 @@ const API = {
     profile:        ()       => API.get('/user/profile'),
     updateProfile:  (data)   => API.put('/user/profile', data),
     changePassword: (data)   => API.put('/user/password', data),
-    revokeAll:      ()       => API.post('/auth/revoke-all'),
+    revokeAll:      ()       => API.post('/user/revoke-all'),
     deleteAccount:  (data)   => API.delete('/user/account', data)
   },
 

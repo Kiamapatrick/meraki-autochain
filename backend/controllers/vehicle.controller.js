@@ -1,6 +1,7 @@
 const Vehicle = require('../models/Vehicle');
 const Inspection = require('../models/Inspection');
 const Verification = require('../models/Verification');
+const { registerVehicleOnChain } = require('../services/blockchain.service');
 
 // GET /api/vehicles/my
 // Returns all vehicles where owner = req.user._id
@@ -155,6 +156,19 @@ const createVehicle = async (req, res) => {
       createdByRole: req.user.role,
       status: 'pending',
     });
+
+    // Register on blockchain if VIN is provided
+    if (vin) {
+      try {
+        const chainResult = await registerVehicleOnChain(vehicle.merakiId, vin);
+        vehicle.blockchainTx = chainResult.transactionHash;
+        vehicle.status = 'verified';
+        await vehicle.save();
+      } catch (chainErr) {
+        console.warn('Blockchain registration failed (vehicle saved locally):', chainErr.message);
+        // Vehicle is still saved locally; user can retry or admin can register later
+      }
+    }
 
     res.status(201).json({
       success: true,
