@@ -63,12 +63,13 @@ meraki-autochain/
 │   │   ├── inspector.controller.js
 │   │   ├── dealer.controller.js
 │   │   ├── insurance.controller.js
-│   │   └── sharing.controller.js
+│   │   ├── sharing.controller.js
+│   │   └── user.controller.js   # Profile, password, sessions, deletion
 │   ├── middleware/
-│   │   ├── auth.middleware.js   # JWT verification
+│   │   ├── auth.middleware.js   # JWT verification + tokenVersion invalidation
 │   │   └── role.middleware.js   # RBAC (inspector/dealer/insurance/user)
 │   ├── models/
-│   │   ├── User.js
+│   │   ├── User.js              # tokenVersion for session invalidation
 │   │   ├── Vehicle.js
 │   │   ├── Inspection.js
 │   │   ├── Share.js
@@ -82,7 +83,7 @@ meraki-autochain/
 │   │   ├── sharing.routes.js
 │   │   └── user.routes.js
 │   ├── services/
-│   │   ├── blockchain.service.js # Web3 interaction
+│   │   ├── blockchain.service.js # Web3 interaction (registerVehicleOnChain, createProof, etc.)
 │   │   └── hash.service.js      # SHA-256 canonicalization
 │   ├── utils/
 │   │   └── generateId.js        # Meraki ID generator (MC-XXXXXX)
@@ -93,11 +94,6 @@ meraki-autochain/
 │
 ├── frontend/                     # Partner Portal (Inspector/Dealer/Insurance)
 │   ├── css/
-│   │   ├── global.css
-│   │   ├── auth.css
-│   │   ├── dealer.css
-│   │   ├── inspector.css
-│   │   └── insurance.css
 │   ├── js/
 │   │   ├── auth/login.js
 │   │   ├── partner/             # Shared partner logic
@@ -107,26 +103,47 @@ meraki-autochain/
 │   │   ├── inspector/
 │   │   └── insurance/
 │   ├── pages/partner/
-│   │   ├── login.html
-│   │   ├── dealer/
-│   │   ├── inspector/
-│   │   └── insurance/
 │   ├── sol/
 │   │   └── MerakiAutoChain.sol  # Smart contract
 │   └── index.html               # Role-based redirect
 │
-├── meraki-user-portal/          # Vehicle Owner Portal
+├── meraki-user-portal/          # Vehicle Owner Portal (Complete)
 │   ├── css/
+│   │   ├── global.css           # Design system + accessibility
+│   │   ├── user.css             # Dashboard, vehicles, activity
+│   │   ├── passport.css         # Vehicle passport layout
+│   │   ├── sharing.css          # Share access page
+│   │   ├── profile.css          # Profile page
+│   │   ├── add-vehicle.css      # Multi-step form wizard
+│   │   ├── shared-passport.css  # Public shared passport
+│   │   └── verify.css           # Public verification
 │   ├── js/
-│   │   ├── shared/              # Auth, API, Router
-│   │   └── user/                # Dashboard, Vehicles, Passport, Sharing
+│   │   ├── shared/              # Core modules
+│   │   │   ├── api.js           # API client (all endpoints)
+│   │   │   ├── auth.js          # Session management
+│   │   │   ├── router.js        # Route guards
+│   │   │   ├── toast.js         # Notification system
+│   │   │   ├── mobile-sidebar.js # Hamburger drawer
+│   │   │   └── modal.js         # Confirm/alert/danger modals
+│   │   └── user/                # Page-specific logic
+│   │       ├── dashboard.js     # Stats, recent vehicles, activity feed
+│   │       ├── vehicles.js      # Filterable vehicle grid
+│   │       ├── passport.js      # Dynamic passport rendering
+│   │       ├── sharing.js       # Share code generation/revocation
+│   │       ├── profile.js       # Profile, password, sessions, deletion
+│   │       ├── add-vehicle.js   # 3-step form wizard
+│   │       ├── shared-passport.js # Public view (no auth)
+│   │       └── verify.js        # Public verification (localStorage history)
 │   └── pages/user/
 │       ├── index.html           # Login
-│       ├── dashboard.html
-│       ├── vehicles.html
-│       ├── vehicle-passport.html
-│       ├── shared-access.html
-│       └── profile.html
+│       ├── dashboard.html       # Overview + stats + activity
+│       ├── vehicles.html        # Garage with filters
+│       ├── vehicle-passport.html # Full passport (dynamic)
+│       ├── shared-access.html   # Generate/revoke share codes
+│       ├── profile.html         # Profile, password, sessions, deletion
+│       ├── add-vehicle.html     # 3-step wizard
+│       ├── shared-passport.html # Public shared view (no login)
+│       └── verify.html          # Public Meraki ID verification
 │
 └── README.md
 ```
@@ -190,8 +207,11 @@ npx serve .              # or python -m http.server 8080
 ### User Portal
 ```bash
 cd meraki-user-portal
-npx serve pages/user     # Serves user portal at http://localhost:3000
+npx serve .              # Serves from repo root (absolute paths)
+# Opens at http://localhost:3000/pages/user/index.html
 ```
+
+> **Note**: The user portal uses absolute paths (`/meraki-user-portal/...`) so serve from the repo root, not the pages/user subdirectory.
 
 ---
 
@@ -206,21 +226,46 @@ npx serve pages/user     # Serves user portal at http://localhost:3000
 
 ---
 
+##  User Portal Features (Complete)
+
+| Feature | Page | Description |
+|---------|------|-------------|
+| **Authentication** | `index.html` | Email/password login, role validation, redirect to dashboard |
+| **Dashboard** | `dashboard.html` | Stats, recent vehicles, activity feed from inspections |
+| **Vehicle Garage** | `vehicles.html` | Filterable grid (All/Verified/Pending), view passport, share |
+| **Vehicle Passport** | `vehicle-passport.html` | Full passport: identity, timeline, verification panel, mileage |
+| **Share Access** | `shared-access.html` | Generate/revoke share codes, list active codes |
+| **Profile** | `profile.html` | Edit name/phone, change password, revoke all sessions, delete account (soft) |
+| **Add Vehicle** | `add-vehicle.html` | 3-step wizard (Basic Info → Specs → Review) |
+| **Public Shared Passport** | `shared-passport.html` | View via share code (no login), copy link, print |
+| **Public Verify** | `verify.html` | Enter Meraki ID → on-chain verification status, recent searches |
+
+**Shared Components:**
+- **Toast notifications** — success/error/info toasts
+- **Mobile sidebar** — hamburger drawer (≤900px), focus trap, ESC to close
+- **Modal system** — confirm, alert, danger modals with focus management
+- **Route guards** — `requireUser()` / `requireGuest()` with relative redirects
+- **Toast** — `Toast.success()`, `Toast.error()`, `Toast.info()`
+
+---
+
 ##  API Endpoints
 
 ### Authentication
 ```
 POST   /api/auth/register           # Register (user/inspector/dealer/insurance)
-POST   /api/auth/login              # Login → JWT
+POST   /api/auth/login              # Login → JWT (includes tokenVersion)
 GET    /api/auth/me                 # Current user profile
-POST   /api/auth/refresh            # Refresh token
 ```
 
 ### Vehicles
 ```
-POST   /api/vehicles                # Register vehicle (inspector)
-GET    /api/vehicles/:merakiId      # Get vehicle + full history
-GET    /api/vehicles                # List (filtered by role)
+POST   /api/vehicles                # Create vehicle (owner) → registers on-chain
+GET    /api/vehicles/my             # List owner's vehicles
+GET    /api/vehicles/:merakiId      # Get vehicle details (owner)
+GET    /api/vehicles/:merakiId/passport # Full passport (vehicle + inspections + verifications)
+GET    /api/vehicles/:merakiId/share  # Generate share code (owner)
+GET    /api/vehicles/:merakiId/shares # List share codes for vehicle
 ```
 
 ### Inspections (Inspector only)
@@ -231,32 +276,26 @@ POST   /api/inspector/inspections/:id/anchor   # Anchor to blockchain
 GET    /api/inspector/inspections              # My inspections
 ```
 
-### Dealer
+### Sharing (User + Public)
 ```
-GET    /api/dealer/requests                  # Access requests
-POST   /api/dealer/requests                  # Request vehicle access
-GET    /api/dealer/inventory                 # Managed vehicles
-```
-
-### Insurance
-```
-GET    /api/insurance/vehicles/:merakiId/report   # Risk report
-GET    /api/insurance/dashboard                   # Portfolio view
+POST   /api/vehicles/:id/share          # Generate share code (owner)
+GET    /api/sharing/all                  # All active codes (owner)
+POST   /api/sharing/revoke               # Revoke code (owner)
+GET    /api/sharing/:code                # Public: view shared passport (no auth)
 ```
 
-### Sharing (User only)
+### Verification (Public)
 ```
-POST   /api/sharing                    # Create share link
-GET    /api/sharing/:token             # View shared passport
-DELETE /api/sharing/:id                # Revoke access
+GET    /api/verify/:merakiId            # Public: on-chain verification (no auth)
 ```
 
-### User Portal
+### User Profile
 ```
-GET    /api/user/dashboard             # My vehicles summary
-GET    /api/user/vehicles              # My vehicles list
-GET    /api/user/vehicles/:merakiId/passport  # Download passport PDF
-GET    /api/user/profile               # Profile settings
+GET    /api/user/profile                # Get profile
+PUT    /api/user/profile                # Update name/phone
+PUT    /api/user/password               # Change password (revokes other sessions)
+POST   /api/user/revoke-all             # Revoke all sessions
+DELETE /api/user/account                # Soft delete account
 ```
 
 ---
@@ -322,7 +361,7 @@ npx hardhat test      # If using Hardhat
 - Set `FRONTEND_URL` in backend CORS
 
 ### User Portal
-- Deploy `meraki-user-portal/pages/user/` as static site
+- Deploy `meraki-user-portal/` as static site (serve from repo root)
 - Separate domain/subdomain recommended
 
 ### Smart Contract
@@ -339,6 +378,19 @@ npx hardhat test      # If using Hardhat
 - **Mobile-First**: Optimized for mobile browsers common in Kenya
 - **Offline-Capable**: User portal works with intermittent connectivity
 - **M-Pesa Ready**: Payment integration points for premium features
+
+---
+
+##  Accessibility & Responsiveness
+
+- **WCAG AA** color contrast (design tokens)
+- **Skip links** on all pages
+- **Focus management** in modals/drawer
+- **Reduced motion** support (`prefers-reduced-motion`)
+- **High contrast** mode support (`prefers-contrast: high`)
+- **Screen reader** utilities (`.sr-only`)
+- **Responsive breakpoints**: 1000px, 900px, 860px, 768px, 640px, 560px, 480px
+- **Print styles** for passports
 
 ---
 
