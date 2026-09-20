@@ -110,10 +110,10 @@ const createVehicle = async (req, res) => {
     } = req.body;
 
     // Validate required fields
-    if (!registrationNumber || !make || !model || !year) {
+    if (!registrationNumber || !vin || !make || !model || !year) {
       return res.status(400).json({
         success: false,
-        message: 'Registration number, make, model and year are required.',
+        message: 'Registration number, VIN, make, model and year are required.',
       });
     }
 
