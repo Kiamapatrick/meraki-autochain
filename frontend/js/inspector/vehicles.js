@@ -51,13 +51,13 @@ function renderTable(vehicles) {
 
   tbody.innerHTML = vehicles.map(v => `
     <tr>
-      <td class="col-reg">${esc(v.registration_number || v.reg_no || '—')}</td>
+      <td class="col-reg">${esc(v.registrationNumber || '—')}</td>
       <td>
         <strong style="font-family:var(--font-display);font-size:0.84rem">${esc(v.make || '')} ${esc(v.model || '')}</strong>
       </td>
       <td class="col-muted">${esc(v.year || '—')}</td>
       <td class="col-muted">${v.mileage ? Number(v.mileage).toLocaleString() + ' km' : '—'}</td>
-      <td class="col-muted">${formatDate(v.inspection_date || v.created_at)}</td>
+      <td class="col-muted">${formatDate(v.createdAt)}</td>
       <td>${statusBadge(v.status)}</td>
       <td><a class="table-action-link" href="#">View</a></td>
     </tr>
@@ -70,8 +70,7 @@ function filterTable() {
 
   const filtered = allVehicles.filter(v => {
     const matchSearch = !query ||
-      (v.registration_number || '').toLowerCase().includes(query) ||
-      (v.reg_no || '').toLowerCase().includes(query) ||
+      (v.registrationNumber || '').toLowerCase().includes(query) ||
       (v.make || '').toLowerCase().includes(query) ||
       (v.model || '').toLowerCase().includes(query);
 

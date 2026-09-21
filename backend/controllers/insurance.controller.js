@@ -61,6 +61,7 @@ const lookupVehicle = async (req, res) => {
     const passport = {
       merakiId: vehicle.merakiId,
       registrationNumber: vehicle.registrationNumber,
+      vin: vehicle.vin,
       make: vehicle.make,
       model: vehicle.model,
       year: vehicle.year,
@@ -145,4 +146,30 @@ const getReports = async (req, res) => {
   }
 };
 
-module.exports = { getDashboard, lookupVehicle, getReports };
+// GET /api/insurance/lookup?reg=KAA001A — lookup by registration number
+const lookupVehicleByReg = async (req, res) => {
+  try {
+    const { reg } = req.query;
+    if (!reg) {
+      return res.status(400).json({ success: false, message: 'Registration number is required.' });
+    }
+
+    const vehicle = await Vehicle.findOne({ registrationNumber: reg.toUpperCase().trim() });
+
+    if (!vehicle) {
+      return res.status(404).json({
+        success: false,
+        found: false,
+        message: `No vehicle found with registration number: ${reg.toUpperCase()}`,
+      });
+    }
+
+    req.params.merakiId = vehicle.merakiId;
+    return lookupVehicle(req, res);
+  } catch (error) {
+    console.error('Insurance lookup-by-reg error:', error);
+    res.status(500).json({ success: false, message: 'Could not retrieve vehicle records.' });
+  }
+};
+
+module.exports = { getDashboard, lookupVehicle, lookupVehicleByReg, getReports };

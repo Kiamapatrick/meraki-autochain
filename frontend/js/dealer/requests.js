@@ -51,9 +51,9 @@ function renderList(requests) {
   list.innerHTML = requests.map(r => `
     <div class="request-item">
       <div class="request-item-left">
-        <div class="request-vehicle">${esc(r.registration_number || r.vehicle || '—')}</div>
-        <div class="request-id">Request ID: ${esc(r.id || r.request_id || '—')}</div>
-        <div class="request-date">${formatDate(r.created_at)}</div>
+        <div class="request-vehicle">${esc(r.registrationNumber || '—')}</div>
+        <div class="request-id">Request ID: ${esc(r.id || '—')}</div>
+        <div class="request-date">${formatDate(r.createdAt)}</div>
       </div>
       <div style="display:flex;align-items:center;gap:12px">
         ${statusBadge(r.status)}
@@ -74,8 +74,7 @@ function filterList() {
 
   const filtered = allRequests.filter(r => {
     const matchSearch = !query ||
-      (r.registration_number || '').toLowerCase().includes(query) ||
-      (r.vehicle || '').toLowerCase().includes(query) ||
+      (r.registrationNumber || '').toLowerCase().includes(query) ||
       (r.id || '').toLowerCase().includes(query);
     const matchStatus = !status || (r.status || '').toLowerCase() === status;
     return matchSearch && matchStatus;

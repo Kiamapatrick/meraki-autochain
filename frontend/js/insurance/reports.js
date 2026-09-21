@@ -84,53 +84,53 @@ async function runLookup(reg) {
 }
 
 function renderReport(data) {
-  // Header
-  setText('report-reg', data.registration_number || '—');
-  setText('report-id',  data.vehicle_id ? `Meraki ID: ${data.vehicle_id}` : '');
-  document.getElementById('report-status-badge').innerHTML = statusBadge(data.status);
+  const v = data.vehicle || {};
 
-  // Vehicle identity
-  setText('rpt-make',      data.make      || '—');
-  setText('rpt-model',     data.model     || '—');
-  setText('rpt-year',      data.year      || '—');
-  setText('rpt-vin',       data.vin       || 'Not recorded');
-  setText('rpt-color',     data.color     || 'Not recorded');
-  setText('rpt-mileage',   data.mileage   ? Number(data.mileage).toLocaleString() + ' km' : '—');
+  setText('report-reg', v.registrationNumber || '—');
+  setText('report-id',  v.merakiId ? `Meraki ID: ${v.merakiId}` : '');
+  document.getElementById('report-status-badge').innerHTML = statusBadge(v.verificationStatus);
 
-  // Inspection summary
-  const inspections = data.inspections || [];
-  setText('rpt-count',     inspections.length || '0');
-  setText('rpt-last',      formatDate(data.last_inspection || (inspections[0] && inspections[0].inspection_date)));
-  setText('rpt-condition', data.condition || (inspections[0] && inspections[0].condition) || '—');
+  setText('rpt-make',  v.make  || '—');
+  setText('rpt-model', v.model || '—');
+  setText('rpt-year',  v.year  || '—');
+  setText('rpt-vin',   v.vin   || 'Not recorded');
+  setText('rpt-color', v.color || 'Not recorded');
 
-  // Inspection history table
+  const inspections = data.inspectionHistory || [];
+  const latest = inspections[inspections.length - 1];
+
+  setText('rpt-count',     data.inspectionCount || '0');
+  setText('rpt-last',      formatDate(latest ? latest.inspectionDate : null));
+  setText('rpt-condition', latest ? latest.condition : '—');
+  setText('rpt-mileage',   latest && latest.mileage ? Number(latest.mileage).toLocaleString() + ' km' : '—');
+
   const tbody = document.getElementById('inspection-history-tbody');
   if (inspections.length) {
     tbody.innerHTML = inspections.map(insp => `
       <tr>
-        <td class="col-muted">${formatDate(insp.inspection_date || insp.created_at)}</td>
+        <td class="col-muted">${formatDate(insp.inspectionDate)}</td>
         <td style="text-transform:capitalize">${esc(insp.condition || '—')}</td>
         <td class="col-muted">${insp.mileage ? Number(insp.mileage).toLocaleString() + ' km' : '—'}</td>
         <td>${statusBadge(insp.status)}</td>
-        <td class="col-muted">${esc(insp.inspector_name || insp.inspector || 'Verified Inspector')}</td>
+        <td class="col-muted">${insp.blockchainStatus === 'confirmed' ? 'Chain-confirmed' : 'Pending'}</td>
       </tr>
     `).join('');
   } else {
     tbody.innerHTML = `<tr><td colspan="5" class="col-muted" style="text-align:center;padding:16px">No inspection history available</td></tr>`;
   }
 
-  // Blockchain panel
-  if (data.hash) {
-    setText('blockchain-hash',    data.hash);
-    setText('blockchain-block',   data.block_number || '—');
-    setText('blockchain-ts',      formatDate(data.blockchain_timestamp || data.verified_at));
-    setText('blockchain-network', data.network || 'Meraki Chain');
+  const proofs = data.hashProofs || [];
+  const latestProof = proofs[proofs.length - 1];
+  if (latestProof) {
+    setText('blockchain-hash',    latestProof.hash);
+    setText('blockchain-block',   latestProof.transactionHash || '—');
+    setText('blockchain-ts',      formatDate(latestProof.timestamp));
+    setText('blockchain-network', latestProof.network || 'Polygon Amoy');
     document.getElementById('blockchain-panel').style.display = 'block';
   } else {
     document.getElementById('blockchain-panel').style.display = 'none';
   }
 
-  // Show clear button
   document.getElementById('clear-btn').style.display = 'inline-flex';
 }
 

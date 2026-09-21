@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function loadInventory() {
   try {
-    const res = await fetch(`${API_BASE}/dealer/inventory`, {
+    const res = await fetch(`${API_BASE}/dealer/vehicles`, {
       headers: authHeaders()
     });
     if (!res.ok) throw new Error('Failed');
@@ -77,20 +77,18 @@ function renderList(vehicles) {
 
   list.innerHTML = vehicles.map(v => `
     <div class="inventory-row">
-      <div class="inventory-row-reg">${esc(v.registration_number || v.reg_no || '—')}</div>
+      <div class="inventory-row-reg">${esc(v.registrationNumber || '—')}</div>
       <div class="inventory-row-info">
         <div class="inventory-row-make">${esc(v.make || '')} ${esc(v.model || '')}</div>
         <div class="inventory-row-meta">${esc(v.year || '')}${v.vin ? ' &middot; VIN: ' + esc(v.vin) : ''}</div>
       </div>
       <div>${statusBadge(v.status)}</div>
       <div class="inventory-row-actions">
-        <button
-          class="btn btn-ghost btn-sm"
-          onclick="requestVerification('${esc(v.id || '')}', '${esc(v.registration_number || v.reg_no || '')}')"
+        <button class="btn btn-ghost btn-sm"
+          onclick="requestVerification('${esc(v.merakiId || '')}', '${esc(v.registrationNumber || '')}')"
         >Request Inspection</button>
-        <button
-          class="btn btn-ghost btn-sm"
-          onclick="openShareModal('${esc(v.id || '')}', '${esc(v.registration_number || v.reg_no || '')}')"
+        <button class="btn btn-ghost btn-sm"
+          onclick="openShareModal('${esc(v.merakiId || '')}', '${esc(v.registrationNumber || '')}')"
         >Share Passport</button>
       </div>
     </div>
@@ -103,8 +101,7 @@ function filterList() {
 
   const filtered = allVehicles.filter(v => {
     const matchSearch = !query ||
-      (v.registration_number || '').toLowerCase().includes(query) ||
-      (v.reg_no || '').toLowerCase().includes(query) ||
+      (v.registrationNumber || '').toLowerCase().includes(query) ||
       (v.make || '').toLowerCase().includes(query) ||
       (v.model || '').toLowerCase().includes(query);
     const matchStatus = !status || (v.status || '').toLowerCase() === status;
@@ -131,7 +128,7 @@ async function handleAddVehicle(e) {
   }
 
   const payload = {
-    registration_number: reg,
+    registrationNumber: reg,
     make,
     model,
     year:  form.year.value  || null,
@@ -139,7 +136,7 @@ async function handleAddVehicle(e) {
   };
 
   try {
-    const res = await fetch(`${API_BASE}/dealer/inventory`, {
+    const res = await fetch(`${API_BASE}/dealer/vehicles`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...authHeaders() },
       body: JSON.stringify(payload),
@@ -172,7 +169,7 @@ async function requestVerification(vehicleId, regNo) {
     const res = await fetch(`${API_BASE}/dealer/requests`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...authHeaders() },
-      body: JSON.stringify({ vehicle_id: vehicleId }),
+      body: JSON.stringify({ merakiId: vehicleId }),
     });
 
     if (res.ok) {

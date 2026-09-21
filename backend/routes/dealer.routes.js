@@ -10,6 +10,7 @@ const {
   getVehicleDetail,
   requestInspection,
   cancelRequest,
+  getRequests,
 } = require('../controllers/dealer.controller');
 
 // All dealer routes require a valid token and the dealer role
@@ -32,5 +33,8 @@ router.post('/requests', requestInspection);
 
 // DELETE /api/dealer/requests/:id  — cancel a pending request
 router.delete('/requests/:id', cancelRequest);
+
+// GET /api/dealer/requests — list all inspection requests
+router.get('/requests', getRequests);
 
 module.exports = router;

@@ -267,6 +267,42 @@ const cancelRequest = async (req, res) => {
   }
 };
 
+// GET /api/dealer/requests
+// Lists every inspection tied to this dealer's vehicles — both pending
+// (dealer-requested, no inspector assigned yet) and completed ones.
+const getRequests = async (req, res) => {
+  try {
+    const vehicles = await Vehicle.find({ createdBy: req.user._id })
+      .select('_id merakiId registrationNumber make model');
+
+    const vehicleMap = {};
+    vehicles.forEach(v => { vehicleMap[v._id.toString()] = v; });
+    const vehicleIds = vehicles.map(v => v._id);
+
+    const inspections = await Inspection.find({ vehicleId: { $in: vehicleIds } })
+      .sort({ createdAt: -1 })
+      .select('vehicleId inspectorId createdAt');
+
+    const requests = inspections.map((insp) => {
+      const vehicle = vehicleMap[insp.vehicleId.toString()];
+      return {
+        id: insp._id,
+        merakiId: vehicle ? vehicle.merakiId : null,
+        registrationNumber: vehicle ? vehicle.registrationNumber : null,
+        make: vehicle ? vehicle.make : null,
+        model: vehicle ? vehicle.model : null,
+        status: insp.inspectorId ? 'completed' : 'pending',
+        createdAt: insp.createdAt,
+      };
+    });
+
+    res.status(200).json({ success: true, total: requests.length, requests });
+  } catch (error) {
+    console.error('Get requests error:', error);
+    res.status(500).json({ success: false, message: 'Could not retrieve requests.' });
+  }
+};
+
 module.exports = {
   getDashboard,
   addVehicle,
@@ -274,4 +310,5 @@ module.exports = {
   getVehicleDetail,
   requestInspection,
   cancelRequest,
+  getRequests,
 };
