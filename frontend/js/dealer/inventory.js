@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function loadInventory() {
   try {
-    const res = await fetch(`${API_BASE}/dealer/vehicles`, {
+    const res = await fetch(`${API_BASE}/dealer/inventory`, {
       headers: authHeaders()
     });
     if (!res.ok) throw new Error('Failed');

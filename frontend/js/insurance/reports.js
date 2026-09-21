@@ -106,7 +106,7 @@ function renderReport(data) {
 
   const tbody = document.getElementById('inspection-history-tbody');
   if (inspections.length) {
-    tbody.innerHTML = inspections.map(insp => `
+    tbody.innerHTML = inspections.slice().reverse().map(insp => `
       <tr>
         <td class="col-muted">${formatDate(insp.inspectionDate)}</td>
         <td style="text-transform:capitalize">${esc(insp.condition || '—')}</td>
